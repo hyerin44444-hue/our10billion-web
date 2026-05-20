@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+import { KakaoShare } from '../components/Shared';
 
 function sp() { return new URLSearchParams(window.location.search); }
 function getNum(key, fallback) { const v = sp().get(key); return v !== null ? Number(v) : fallback; }
@@ -188,7 +189,12 @@ export default function EtfCalculator() {
             <div className="sub">매달 꾸준히 투자하면 얼마가 될까요?</div>
           </div>
         </div>
-        <div className="right"></div>
+        <div className="right">
+          <KakaoShare
+            title={`${years}년 후 ${fmt(finalValue)}원`}
+            description={`월 ${monthly.toLocaleString()}만원 적립 · 수익률 ${rate}% · 수익금 +${fmt(profit)}원 · 모았다 ETF 계산기`}
+          />
+        </div>
       </div>
 
       {/* 입력 카드 4개 */}

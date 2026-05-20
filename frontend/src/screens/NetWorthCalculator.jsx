@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { DonutBreakdown } from '../components/Shared';
+import { DonutBreakdown, KakaoShare } from '../components/Shared';
 
 // ── 포맷 ─────────────────────────────────────────────────────
 function fmt(wan) {
@@ -122,6 +122,10 @@ export default function NetWorthCalculator() {
           </div>
         </div>
         <div className="right">
+          <KakaoShare
+            title={`내 순자산 ${fmt(netWorth)}원`}
+            description={`총 자산 ${fmt(totalAssets)}원 · 총 부채 ${fmt(totalDebts)}원 · 부채비율 ${debtRatio.toFixed(1)}% · 모았다 계산기`}
+          />
           <button className="pill-btn" style={{ fontSize: 14, padding: '10px 18px' }}
             onClick={() => { setAssets({ cash: 0, invest: 0, pension: 0, realty: 0, other: 0 }); setDebts({ mortgage: 0, credit: 0, car: 0, other: 0 }); }}>
             초기화
