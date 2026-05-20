@@ -1,5 +1,50 @@
 import { useMemo } from 'react';
 
+const KAKAO_JS_KEY = import.meta.env.VITE_KAKAO_JS_KEY;
+
+function initKakao() {
+  if (!window.Kakao || !KAKAO_JS_KEY) return false;
+  if (!window.Kakao.isInitialized()) window.Kakao.init(KAKAO_JS_KEY);
+  return true;
+}
+
+export function KakaoShare({ title, description, imageUrl }) {
+  const handleShare = () => {
+    if (!initKakao()) {
+      alert('카카오 앱 키가 설정되지 않았습니다.');
+      return;
+    }
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title,
+        description,
+        imageUrl: imageUrl ?? `${window.location.origin}/og-image.png`,
+        link: {
+          mobileWebUrl: window.location.href,
+          webUrl: window.location.href,
+        },
+      },
+      buttons: [{ title: '결과 보기', link: { mobileWebUrl: window.location.href, webUrl: window.location.href } }],
+    });
+  };
+
+  return (
+    <button onClick={handleShare} style={{
+      display: 'inline-flex', alignItems: 'center', gap: 8,
+      padding: '10px 20px', borderRadius: 999,
+      background: '#FEE500', color: '#1a1a1a',
+      border: 'none', cursor: 'pointer',
+      fontFamily: 'inherit', fontSize: 14, fontWeight: 600,
+    }}>
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M9 1.5C4.86 1.5 1.5 4.16 1.5 7.44c0 2.1 1.36 3.95 3.42 5.03l-.87 3.18a.3.3 0 0 0 .46.32L8.1 13.4c.3.03.6.04.9.04 4.14 0 7.5-2.66 7.5-5.94C16.5 4.16 13.14 1.5 9 1.5z" fill="#1a1a1a"/>
+      </svg>
+      카카오톡 공유
+    </button>
+  );
+}
+
 export function MiniLifeCard() {
   const startYear = 2026;
   const today = 2026;

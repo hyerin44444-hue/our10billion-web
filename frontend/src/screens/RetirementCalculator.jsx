@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { KakaoShare } from '../components/Shared';
 
 // ── 계산 ──────────────────────────────────────────────────────
 function calculate({ currentAge, retireAge, currentAssets, monthly, rate, monthlyExpense, lifeExpectancy }) {
@@ -301,6 +302,16 @@ export default function RetirementCalculator() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* 공유 */}
+      <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: 8 }}>
+        <KakaoShare
+          title={canRetire ? `${retireAge}세 은퇴 가능! 🎯` : `은퇴 시뮬레이션 결과`}
+          description={canRetire
+            ? `은퇴 자산 ${fmt(retirementPortfolio)}원 · ${Math.floor(lastsUntilAge)}세까지 유지 · 모았다 시뮬레이터`
+            : `${fmt(Math.abs(shortfall))}원 부족 · 모았다 시뮬레이터`}
+        />
       </div>
     </>
   );
