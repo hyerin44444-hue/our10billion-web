@@ -30,7 +30,7 @@ export function KakaoShare({ title, description, imageUrl }) {
   };
 
   return (
-    <button onClick={handleShare} style={{
+    <button onClick={handleShare} className="kakao-share-btn" style={{
       display: 'inline-flex', alignItems: 'center', gap: 8,
       padding: '10px 20px', borderRadius: 999,
       background: '#FEE500', color: '#1a1a1a',

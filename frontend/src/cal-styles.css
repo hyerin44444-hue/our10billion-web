@@ -339,6 +339,18 @@ body {
   /* 연도별 테이블 폰트 축소 */
   .year-table-row { font-size: 11px !important; }
   .year-table-row span { font-size: 11px !important; }
+
+  /* topbar right 영역 */
+  .topbar { flex-wrap: wrap; gap: 8px; }
+  .topbar .right { gap: 6px !important; flex-wrap: wrap; justify-content: flex-end; }
+
+  /* seg 버튼 (탭, 프리셋) */
+  .seg { overflow-x: auto; max-width: 100%; }
+  .seg button { font-size: 11px; padding: 5px 9px; }
+
+  /* 카카오 공유 버튼 */
+  .kakao-share-btn { padding: 7px 12px !important; font-size: 12px !important; }
+  .kakao-share-btn svg { width: 14px !important; height: 14px !important; }
 }
 
 @media (max-width: 400px) {
