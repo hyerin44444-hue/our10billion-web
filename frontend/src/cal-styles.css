@@ -1,5 +1,5 @@
 /* Calendar-revamp inspired: dark warm-gray bg, pastel dots, white pill CTAs, rounded soft cards */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Do+Hyeon&display=swap');
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css');
 
 :root {
@@ -65,7 +65,7 @@ body {
   display: flex; align-items: center; gap: 10px;
   color: var(--text); font-weight: 700; font-size: 16px;
   padding: 0 8px 4px;
-  font-family: 'Jua', sans-serif;
+  font-family: 'Do Hyeon', sans-serif;
 }
 .sb-brand .logo-dot {
   width: 20px; height: 20px; border-radius: 6px;
@@ -161,7 +161,7 @@ body {
   flex-shrink: 0;
 }
 .topbar .left { display: flex; align-items: center; gap: 14px; }
-.topbar .title { font-size: 22px; font-weight: 700; font-family: 'Jua', sans-serif; }
+.topbar .title { font-size: 22px; font-weight: 700; font-family: 'Do Hyeon', sans-serif; }
 .topbar .sub { font-size: 13px; color: var(--text-3); }
 .topbar .right { display: flex; align-items: center; gap: 8px; }
 
