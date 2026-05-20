@@ -191,7 +191,7 @@ export default function BillionCalculator() {
             {TARGETS.map(t => (
               <button key={t.value}
                 className={target === t.value ? 'on' : ''}
-                onClick={() => setTarget(t.value)}
+                onClick={() => update(setTarget, 'bt')(t.value)}
               >{t.label}</button>
             ))}
           </div>
