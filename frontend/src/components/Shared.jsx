@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 const KAKAO_JS_KEY = import.meta.env.VITE_KAKAO_JS_KEY;
 
@@ -41,6 +41,31 @@ export function KakaoShare({ title, description, imageUrl }) {
         <path d="M9 1.5C4.86 1.5 1.5 4.16 1.5 7.44c0 2.1 1.36 3.95 3.42 5.03l-.87 3.18a.3.3 0 0 0 .46.32L8.1 13.4c.3.03.6.04.9.04 4.14 0 7.5-2.66 7.5-5.94C16.5 4.16 13.14 1.5 9 1.5z" fill="#1a1a1a"/>
       </svg>
       카카오톡 공유
+    </button>
+  );
+}
+
+export function CopyLinkBtn() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
+  return (
+    <button onClick={handleCopy} className="kakao-share-btn" style={{
+      display: 'inline-flex', alignItems: 'center', gap: 6,
+      padding: '10px 16px', borderRadius: 999,
+      background: copied ? 'rgba(93,187,122,0.2)' : 'rgba(255,255,255,0.10)',
+      color: copied ? 'var(--green)' : 'var(--text)',
+      border: '1px solid ' + (copied ? 'var(--green)' : 'rgba(255,255,255,0.15)'),
+      cursor: 'pointer', fontFamily: 'inherit', fontSize: 14, fontWeight: 600,
+      transition: 'all 0.2s',
+    }}>
+      {copied ? '✓ 복사됨' : '🔗 링크 복사'}
     </button>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { KakaoShare } from '../components/Shared';
+import { KakaoShare, CopyLinkBtn } from '../components/Shared';
 
 function sp() { return new URLSearchParams(window.location.search); }
 function getNum(key, fallback) { const v = sp().get(key); return v !== null ? Number(v) : fallback; }
@@ -190,6 +190,7 @@ export default function EtfCalculator() {
           </div>
         </div>
         <div className="right">
+          <CopyLinkBtn />
           <KakaoShare
             title={`${years}년 후 ${fmt(finalValue)}원`}
             description={`월 ${monthly.toLocaleString()}만원 적립 · 수익률 ${rate}% · 수익금 +${fmt(profit)}원 · 모았다 ETF 계산기`}

@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { KakaoShare } from '../components/Shared';
+import { KakaoShare, CopyLinkBtn } from '../components/Shared';
 
 function sp() { return new URLSearchParams(window.location.search); }
 function getNum(key, fallback) { const v = sp().get(key); return v !== null ? Number(v) : fallback; }
@@ -180,6 +180,7 @@ export default function RetirementCalculator() {
           </div>
         </div>
         <div className="right" style={{ gap: 10 }}>
+          <CopyLinkBtn />
           <KakaoShare
             title={canRetire ? `${retireAge}세 은퇴 가능! 🎯` : `은퇴 시뮬레이션 결과`}
             description={canRetire

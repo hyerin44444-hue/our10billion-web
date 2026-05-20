@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { DonutBreakdown, KakaoShare } from '../components/Shared';
+import { DonutBreakdown, KakaoShare, CopyLinkBtn } from '../components/Shared';
 
 function sp() { return new URLSearchParams(window.location.search); }
 function getNum(key, fallback) { const v = sp().get(key); return v !== null ? Number(v) : fallback; }
@@ -141,6 +141,7 @@ export default function NetWorthCalculator() {
           </div>
         </div>
         <div className="right">
+          <CopyLinkBtn />
           <KakaoShare
             title={`내 순자산 ${fmt(netWorth)}원`}
             description={`총 자산 ${fmt(totalAssets)}원 · 총 부채 ${fmt(totalDebts)}원 · 부채비율 ${debtRatio.toFixed(1)}% · 모았다 계산기`}
