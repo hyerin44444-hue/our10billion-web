@@ -52,11 +52,6 @@ export function Sidebar({ active, onNavigate }) {
       </div>
 
       <div className="spacer"></div>
-
-      <div className="sb-row" style={{ color: 'var(--text-3)' }}>
-        <span style={{ fontSize: 14 }}>⚙</span>
-        <span>설정</span>
-      </div>
     </aside>
   );
 }
