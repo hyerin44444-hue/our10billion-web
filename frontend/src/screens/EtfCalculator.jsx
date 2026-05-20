@@ -1,4 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+
+function sp() { return new URLSearchParams(window.location.search); }
+function getNum(key, fallback) { const v = sp().get(key); return v !== null ? Number(v) : fallback; }
 
 // ── 계산 로직 ────────────────────────────────────────────────
 function calculate({ initial, monthly, rate, years }) {
@@ -156,10 +159,17 @@ function YearlyTable({ data }) {
 
 // ── 메인 컴포넌트 ─────────────────────────────────────────────
 export default function EtfCalculator() {
-  const [initial, setInitial] = useState(1000);   // 만원
-  const [monthly, setMonthly] = useState(100);    // 만원
-  const [rate, setRate]       = useState(7);      // %
-  const [years, setYears]     = useState(20);     // 년
+  const [initial, setInitial] = useState(() => getNum('ei', 1000));
+  const [monthly, setMonthly] = useState(() => getNum('em', 100));
+  const [rate, setRate]       = useState(() => getNum('er', 7));
+  const [years, setYears]     = useState(() => getNum('ey', 20));
+
+  useEffect(() => {
+    const p = sp();
+    p.set('screen', 'etf');
+    p.set('ei', initial); p.set('em', monthly); p.set('er', rate); p.set('ey', years);
+    window.history.replaceState(null, '', `?${p}`);
+  }, [initial, monthly, rate, years]);
 
   const result = useMemo(
     () => calculate({ initial, monthly, rate, years }),

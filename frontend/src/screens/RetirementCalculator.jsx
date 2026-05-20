@@ -1,5 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { KakaoShare } from '../components/Shared';
+
+function sp() { return new URLSearchParams(window.location.search); }
+function getNum(key, fallback) { const v = sp().get(key); return v !== null ? Number(v) : fallback; }
 
 // ── 계산 ──────────────────────────────────────────────────────
 function calculate({ currentAge, retireAge, currentAssets, monthly, rate, monthlyExpense, lifeExpectancy, pensionMonthly = 0, pensionStartAge = 63 }) {
@@ -127,16 +130,26 @@ function LifecycleChart({ accumYearly, drawdownYearly, retireAge, lifeExpectancy
 
 // ── 메인 ────────────────────────────────────────────────────
 export default function RetirementCalculator() {
-  const [currentAge,    setCurrentAge]    = useState(35);
-  const [retireAge,     setRetireAge]     = useState(58);
-  const [currentAssets, setCurrentAssets] = useState(5000);   // 만원
-  const [monthly,       setMonthly]       = useState(200);    // 만원
-  const [rate,          setRate]          = useState(6);       // %
-  const [monthlyExp,    setMonthlyExp]    = useState(300);    // 만원
-  const [lifeExp,       setLifeExp]       = useState(88);     // 세
-  const [pensionOn,     setPensionOn]     = useState(false);
-  const [pensionAmt,    setPensionAmt]    = useState(100);    // 만원/월
-  const [pensionStart,  setPensionStart]  = useState(63);     // 세
+  const [currentAge,    setCurrentAge]    = useState(() => getNum('ra', 35));
+  const [retireAge,     setRetireAge]     = useState(() => getNum('rr', 58));
+  const [currentAssets, setCurrentAssets] = useState(() => getNum('rc', 5000));
+  const [monthly,       setMonthly]       = useState(() => getNum('rm', 200));
+  const [rate,          setRate]          = useState(() => getNum('rrate', 6));
+  const [monthlyExp,    setMonthlyExp]    = useState(() => getNum('re', 300));
+  const [lifeExp,       setLifeExp]       = useState(() => getNum('rl', 88));
+  const [pensionOn,     setPensionOn]     = useState(() => sp().get('rpo') === '1');
+  const [pensionAmt,    setPensionAmt]    = useState(() => getNum('rpa', 100));
+  const [pensionStart,  setPensionStart]  = useState(() => getNum('rps', 63));
+
+  useEffect(() => {
+    const p = sp();
+    p.set('screen', 'retirement');
+    p.set('ra', currentAge); p.set('rr', retireAge); p.set('rc', currentAssets);
+    p.set('rm', monthly); p.set('rrate', rate); p.set('re', monthlyExp);
+    p.set('rl', lifeExp); p.set('rpo', pensionOn ? '1' : '0');
+    p.set('rpa', pensionAmt); p.set('rps', pensionStart);
+    window.history.replaceState(null, '', `?${p}`);
+  }, [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp, pensionOn, pensionAmt, pensionStart]);
 
   const params = {
     currentAge, retireAge, currentAssets, monthly, rate,
