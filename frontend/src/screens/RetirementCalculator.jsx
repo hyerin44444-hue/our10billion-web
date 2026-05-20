@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { KakaoShare } from '../components/Shared';
 
 // ── 계산 ──────────────────────────────────────────────────────
-function calculate({ currentAge, retireAge, currentAssets, monthly, rate, monthlyExpense, lifeExpectancy }) {
+function calculate({ currentAge, retireAge, currentAssets, monthly, rate, monthlyExpense, lifeExpectancy, pensionMonthly = 0, pensionStartAge = 63 }) {
   const r = rate / 100 / 12;
   const accumMonths = (retireAge - currentAge) * 12;
   const drawdownMonths = (lifeExpectancy - retireAge) * 12;
@@ -16,21 +16,23 @@ function calculate({ currentAge, retireAge, currentAssets, monthly, rate, monthl
   }
   const retirementPortfolio = portfolio;
 
-  // 인출 구간
+  // 인출 구간 (국민연금 수령 시 생활비에서 차감)
   let drawdown = retirementPortfolio;
   const drawdownYearly = [{ age: retireAge, portfolio: drawdown }];
   let depletedAge = null;
   for (let m = 1; m <= drawdownMonths; m++) {
-    drawdown = drawdown * (1 + r) - monthlyExpense;
-    if (drawdown <= 0 && !depletedAge) {
-      depletedAge = retireAge + m / 12;
-    }
-    if (m % 12 === 0) drawdownYearly.push({ age: retireAge + m / 12, portfolio: Math.max(0, drawdown) });
+    const ageNow = retireAge + m / 12;
+    const pension = ageNow >= pensionStartAge ? pensionMonthly : 0;
+    const netExpense = Math.max(0, monthlyExpense - pension);
+    drawdown = drawdown * (1 + r) - netExpense;
+    if (drawdown <= 0 && !depletedAge) depletedAge = ageNow;
+    if (m % 12 === 0) drawdownYearly.push({ age: ageNow, portfolio: Math.max(0, drawdown) });
   }
 
+  const effectiveExpense = monthlyExpense - pensionMonthly;
   const canRetire = !depletedAge || depletedAge >= lifeExpectancy;
   const lastsUntilAge = depletedAge ?? lifeExpectancy;
-  const shortfall = canRetire ? 0 : (monthlyExpense * 12 / 0.04) - retirementPortfolio;
+  const shortfall = canRetire ? 0 : (Math.max(0, effectiveExpense) * 12 / 0.04) - retirementPortfolio;
 
   return { accumYearly, drawdownYearly, retirementPortfolio, canRetire, lastsUntilAge, shortfall };
 }
@@ -132,13 +134,21 @@ export default function RetirementCalculator() {
   const [rate,          setRate]          = useState(6);       // %
   const [monthlyExp,    setMonthlyExp]    = useState(300);    // 만원
   const [lifeExp,       setLifeExp]       = useState(88);     // 세
+  const [pensionOn,     setPensionOn]     = useState(false);
+  const [pensionAmt,    setPensionAmt]    = useState(100);    // 만원/월
+  const [pensionStart,  setPensionStart]  = useState(63);     // 세
 
-  const params = { currentAge, retireAge, currentAssets, monthly, rate, monthlyExpense: monthlyExp, lifeExpectancy: lifeExp };
+  const params = {
+    currentAge, retireAge, currentAssets, monthly, rate,
+    monthlyExpense: monthlyExp, lifeExpectancy: lifeExp,
+    pensionMonthly: pensionOn ? pensionAmt : 0,
+    pensionStartAge: pensionStart,
+  };
 
-  const result        = useMemo(() => calculate(params), [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp]);
-  const resultPlus10  = useMemo(() => calculate({ ...params, monthly: monthly + 10 }),  [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp]);
-  const resultPlus50  = useMemo(() => calculate({ ...params, monthly: monthly + 50 }),  [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp]);
-  const resultRate1up = useMemo(() => calculate({ ...params, rate: rate + 1 }),          [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp]);
+  const result        = useMemo(() => calculate(params), [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp, pensionOn, pensionAmt, pensionStart]);
+  const resultPlus10  = useMemo(() => calculate({ ...params, monthly: monthly + 10 }),  [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp, pensionOn, pensionAmt, pensionStart]);
+  const resultPlus50  = useMemo(() => calculate({ ...params, monthly: monthly + 50 }),  [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp, pensionOn, pensionAmt, pensionStart]);
+  const resultRate1up = useMemo(() => calculate({ ...params, rate: rate + 1 }),          [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp, pensionOn, pensionAmt, pensionStart]);
 
   const { accumYearly, drawdownYearly, retirementPortfolio, canRetire, lastsUntilAge, shortfall } = result;
   const yearsToRetire   = retireAge - currentAge;
@@ -156,10 +166,16 @@ export default function RetirementCalculator() {
             <div className="sub">지금 속도로 모으면 몇 살에 은퇴할 수 있을까요?</div>
           </div>
         </div>
-        <div className="right">
+        <div className="right" style={{ gap: 10 }}>
+          <KakaoShare
+            title={canRetire ? `${retireAge}세 은퇴 가능! 🎯` : `은퇴 시뮬레이션 결과`}
+            description={canRetire
+              ? `은퇴 자산 ${fmt(retirementPortfolio)}원 · ${Math.floor(lastsUntilAge)}세까지 유지 · 모았다 시뮬레이터`
+              : `${fmt(Math.abs(shortfall))}원 부족 · 모았다 시뮬레이터`}
+          />
           <div className="seg">
-            <button className="on">국민연금 미포함</button>
-            <button>포함</button>
+            <button className={!pensionOn ? 'on' : ''} onClick={() => setPensionOn(false)}>미포함</button>
+            <button className={pensionOn ? 'on' : ''} onClick={() => setPensionOn(true)}>국민연금 포함</button>
           </div>
         </div>
       </div>
@@ -178,6 +194,21 @@ export default function RetirementCalculator() {
         <SliderCard label="은퇴 후 월 생활비" value={monthlyExp} unit="만원" min={100} max={1000} step={50} onChange={setMonthlyExp} />
         <SliderCard label="기대 수명"        value={lifeExp}  unit="세"  min={retireAge + 1} max={100} step={1} onChange={setLifeExp} />
       </div>
+
+      {/* 국민연금 입력 (포함 탭 선택 시) */}
+      {pensionOn && (
+        <div className="card" style={{ background: 'rgba(165,148,249,0.10)', border: '1px solid rgba(165,148,249,0.25)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+            <span style={{ fontSize: 16 }}>🏛️</span>
+            <span style={{ fontWeight: 600, fontSize: 15 }}>국민연금 설정</span>
+            <span style={{ fontSize: 12, color: 'var(--text-3)', marginLeft: 4 }}>수령 시작 후 생활비에서 자동 차감</span>
+          </div>
+          <div className="grid-2">
+            <SliderCard label="월 예상 수령액" value={pensionAmt} unit="만원" min={30} max={300} step={10} onChange={setPensionAmt} />
+            <SliderCard label="수령 시작 나이" value={pensionStart} unit="세" min={60} max={70} step={1} onChange={setPensionStart} />
+          </div>
+        </div>
+      )}
 
       {/* 결과 히어로 */}
       <div className="card hero">
@@ -200,6 +231,11 @@ export default function RetirementCalculator() {
               <span className="chip light">
                 연 생활비 {fmt(annualExpense)}원
               </span>
+              {pensionOn && (
+                <span className="chip purple">
+                  🏛️ 국민연금 월 {pensionAmt}만 ({pensionStart}세~)
+                </span>
+              )}
             </div>
           </div>
 
@@ -304,15 +340,6 @@ export default function RetirementCalculator() {
         </div>
       </div>
 
-      {/* 공유 */}
-      <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: 8 }}>
-        <KakaoShare
-          title={canRetire ? `${retireAge}세 은퇴 가능! 🎯` : `은퇴 시뮬레이션 결과`}
-          description={canRetire
-            ? `은퇴 자산 ${fmt(retirementPortfolio)}원 · ${Math.floor(lastsUntilAge)}세까지 유지 · 모았다 시뮬레이터`
-            : `${fmt(Math.abs(shortfall))}원 부족 · 모았다 시뮬레이터`}
-        />
-      </div>
     </>
   );
 }
