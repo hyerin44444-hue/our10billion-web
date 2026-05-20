@@ -137,13 +137,36 @@ const TARGETS = [
   { label: '50억',  value: 500000 },
 ];
 
+// ── URL 파라미터 파싱 ─────────────────────────────────────────
+function getInitial() {
+  const p = new URLSearchParams(window.location.search);
+  return {
+    currentAssets: Number(p.get('ba')) || 3000,
+    monthly:       Number(p.get('bm')) || 200,
+    rate:          Number(p.get('br')) || 7,
+    target:        Number(p.get('bt')) || 100000,
+    currentAge:    Number(p.get('bag')) || 35,
+  };
+}
+
 // ── 메인 ─────────────────────────────────────────────────────
 export default function BillionCalculator() {
-  const [currentAssets, setCurrentAssets] = useState(3000);   // 만원
-  const [monthly,       setMonthly]       = useState(200);    // 만원
-  const [rate,          setRate]          = useState(7);       // %
-  const [target,        setTarget]        = useState(100000); // 만원 (10억)
-  const [currentAge,    setCurrentAge]    = useState(35);
+  const init = useMemo(getInitial, []);
+  const [currentAssets, setCurrentAssets] = useState(init.currentAssets);
+  const [monthly,       setMonthly]       = useState(init.monthly);
+  const [rate,          setRate]          = useState(init.rate);
+  const [target,        setTarget]        = useState(init.target);
+  const [currentAge,    setCurrentAge]    = useState(init.currentAge);
+
+  // 값 바뀔 때마다 URL 동기화
+  const sync = (key, val) => {
+    const sp = new URLSearchParams(window.location.search);
+    sp.set('screen', 'billion');
+    sp.set(key, val);
+    window.history.replaceState(null, '', `?${sp}`);
+  };
+
+  const update = (setter, key) => (val) => { setter(val); sync(key, val); };
 
   const result = useMemo(() =>
     calculate({ currentAssets, monthly, rate, target, currentAge }),
