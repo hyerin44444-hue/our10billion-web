@@ -37,23 +37,37 @@ function fmtShort(wan) {
   return `${Math.round(wan).toLocaleString()}만`;
 }
 
-// ── 슬라이더 입력 카드 ────────────────────────────────────────
-function InputCard({ label, value, unit, min, max, step, onChange, display }) {
+// ── 슬라이더 + 직접입력 카드 ─────────────────────────────────
+function InputCard({ label, value, unit, min, max, step, onChange, display, editable }) {
   return (
     <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
       <div className="k">{label}</div>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-        <span className="num" style={{ fontSize: 32, color: 'var(--text)' }}>{display ?? value.toLocaleString()}</span>
-        <span style={{ fontSize: 15, color: 'var(--text-3)' }}>{unit}</span>
-      </div>
+      {editable ? (
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+          <input
+            type="number" min={min} max={max} step={step} value={value || ''}
+            onChange={e => onChange(e.target.value === '' ? 0 : Number(e.target.value))}
+            style={{
+              width: '100%', background: 'transparent', border: 'none',
+              borderBottom: '2px solid var(--coral)', outline: 'none',
+              color: 'var(--text)', fontFamily: 'inherit',
+              fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em',
+              padding: '0 0 4px',
+            }}
+          />
+          <span style={{ fontSize: 15, color: 'var(--text-3)', flexShrink: 0 }}>{unit}</span>
+        </div>
+      ) : (
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+          <span className="num" style={{ fontSize: 32, color: 'var(--text)' }}>{display ?? value.toLocaleString()}</span>
+          <span style={{ fontSize: 15, color: 'var(--text-3)' }}>{unit}</span>
+        </div>
+      )}
       <input
         type="range"
-        min={min} max={max} step={step} value={value}
+        min={min} max={max} step={step} value={Math.min(value, max)}
         onChange={e => onChange(Number(e.target.value))}
-        style={{
-          width: '100%', accentColor: 'var(--coral)',
-          height: 4, cursor: 'pointer',
-        }}
+        style={{ width: '100%', accentColor: 'var(--coral)', height: 4, cursor: 'pointer' }}
       />
       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--text-3)' }}>
         <span>{min.toLocaleString()}{unit}</span>
@@ -164,12 +178,7 @@ export default function EtfCalculator() {
             <div className="sub">매달 꾸준히 투자하면 얼마가 될까요?</div>
           </div>
         </div>
-        <div className="right">
-          <div className="seg">
-            <button className="on">세후 미고려</button>
-            <button>세후 반영</button>
-          </div>
-        </div>
+        <div className="right"></div>
       </div>
 
       {/* 입력 카드 4개 */}
@@ -177,12 +186,12 @@ export default function EtfCalculator() {
         <InputCard
           label="월 적립금" unit="만원"
           min={10} max={1000} step={10} value={monthly}
-          onChange={setMonthly}
+          onChange={setMonthly} editable
         />
         <InputCard
           label="초기 투자금" unit="만원"
           min={0} max={10000} step={100} value={initial}
-          onChange={setInitial}
+          onChange={setInitial} editable
         />
         <InputCard
           label="기대 수익률" unit="%" display={`${rate.toFixed(1)}`}

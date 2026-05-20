@@ -213,7 +213,7 @@ export default function NetWorthCalculator() {
                     <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <span style={{ width: 10, height: 10, borderRadius: '50%', background: c.dot, flexShrink: 0 }} />
                       <span style={{ flex: 1, fontSize: 13 }}>{c.label}</span>
-                      <span className="num" style={{ fontSize: 13 }}>{fmt(val)}만</span>
+                      <span className="num" style={{ fontSize: 13 }}>{fmt(val)}</span>
                       <span style={{ fontSize: 11, color: 'var(--text-3)', width: 32, textAlign: 'right' }}>{pct}%</span>
                     </div>
                   );

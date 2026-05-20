@@ -132,14 +132,19 @@ export default function RetirementCalculator() {
   const [monthlyExp,    setMonthlyExp]    = useState(300);    // 만원
   const [lifeExp,       setLifeExp]       = useState(88);     // 세
 
-  const result = useMemo(() => calculate({
-    currentAge, retireAge, currentAssets, monthly,
-    rate, monthlyExpense: monthlyExp, lifeExpectancy: lifeExp,
-  }), [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp]);
+  const params = { currentAge, retireAge, currentAssets, monthly, rate, monthlyExpense: monthlyExp, lifeExpectancy: lifeExp };
+
+  const result        = useMemo(() => calculate(params), [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp]);
+  const resultPlus10  = useMemo(() => calculate({ ...params, monthly: monthly + 10 }),  [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp]);
+  const resultPlus50  = useMemo(() => calculate({ ...params, monthly: monthly + 50 }),  [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp]);
+  const resultRate1up = useMemo(() => calculate({ ...params, rate: rate + 1 }),          [currentAge, retireAge, currentAssets, monthly, rate, monthlyExp, lifeExp]);
 
   const { accumYearly, drawdownYearly, retirementPortfolio, canRetire, lastsUntilAge, shortfall } = result;
-  const yearsToRetire = retireAge - currentAge;
-  const annualExpense = monthlyExp * 12;
+  const yearsToRetire   = retireAge - currentAge;
+  const annualExpense   = monthlyExp * 12;
+  const gainPlus10      = resultPlus10.retirementPortfolio  - retirementPortfolio;
+  const gainPlus50      = resultPlus50.retirementPortfolio  - retirementPortfolio;
+  const gainRate1up     = resultRate1up.retirementPortfolio - retirementPortfolio;
 
   return (
     <>
@@ -287,8 +292,8 @@ export default function RetirementCalculator() {
             canRetire
               ? { emoji: '🎯', text: `현재 계획대로라면 ${retireAge}세에 은퇴 가능해요. 자산이 ${Math.floor(lastsUntilAge)}세까지 유지됩니다.` }
               : { emoji: '⚠️', text: `은퇴 자산이 ${fmt(Math.abs(shortfall))}원 부족해요. 월 저축을 늘리거나 은퇴 시기를 늦춰보세요.` },
-            { emoji: '💡', text: `월 ${(monthly * 0.1).toFixed(0)}만원만 더 저축하면 은퇴 자산이 약 ${fmt(monthly * 0.1 * 12 * yearsToRetire * 1.3)}원 늘어요.` },
-            { emoji: '📈', text: `수익률이 1% 오를 때마다 은퇴 자산은 약 ${fmt(retirementPortfolio * 0.15)}원 증가해요.` },
+            { emoji: '💡', text: `월 10만원만 더 저축하면 은퇴 자산이 ${fmt(gainPlus10)}원 늘어요. 월 50만원 추가 시 ${fmt(gainPlus50)}원 증가합니다.` },
+            { emoji: '📈', text: `수익률이 1% 오르면 (${rate}% → ${rate + 1}%) 은퇴 자산이 ${fmt(gainRate1up)}원 증가해요.` },
           ].map((item, i) => (
             <div key={i} style={{ display: 'flex', gap: 12, padding: 12, background: 'rgba(255,255,255,0.04)', borderRadius: 12 }}>
               <span style={{ fontSize: 18, flexShrink: 0 }}>{item.emoji}</span>
