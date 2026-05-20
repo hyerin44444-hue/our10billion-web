@@ -207,14 +207,14 @@ export default function EtfCalculator() {
 
       {/* 결과 히어로 카드 */}
       <div className="card hero">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div>
+        <div className="hero-inner">
+          <div style={{ flex: 1, minWidth: 0 }}>
             <div className="k-light">{years}년 후 예상 평가금액</div>
             <div className="num" style={{ fontSize: 52, lineHeight: 1.1, marginTop: 8 }}>
               {fmt(finalValue)}
               <span style={{ fontSize: 22, fontWeight: 600, color: 'var(--on-light-2)', marginLeft: 4 }}>원</span>
             </div>
-            <div style={{ marginTop: 10, display: 'flex', gap: 8 }}>
+            <div style={{ marginTop: 10, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <span className="chip light">총 납입 {fmt(totalPrincipal)}원</span>
               <span className="chip light" style={{ color: '#ef6f5b', fontWeight: 700 }}>
                 수익 +{fmt(profit)}원
@@ -226,9 +226,9 @@ export default function EtfCalculator() {
           </div>
 
           {/* 원금 vs 수익 비율 바 */}
-          <div style={{ textAlign: 'right', minWidth: 160 }}>
+          <div className="hero-ratio">
             <div className="k-light" style={{ marginBottom: 10 }}>원금 vs 수익</div>
-            <div style={{ height: 10, borderRadius: 999, overflow: 'hidden', background: 'rgba(0,0,0,0.10)', width: 160 }}>
+            <div style={{ height: 10, borderRadius: 999, overflow: 'hidden', background: 'rgba(0,0,0,0.10)' }}>
               <div style={{
                 height: '100%', borderRadius: 999,
                 width: `${(totalPrincipal / finalValue) * 100}%`,

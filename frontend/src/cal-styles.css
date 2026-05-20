@@ -248,6 +248,20 @@ body {
 .scroll::-webkit-scrollbar { width: 8px; height: 8px; }
 .scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
 
+/* ── 히어로 카드 내부 레이아웃 ───────────────────────────── */
+.hero-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+.hero-ratio {
+  text-align: right;
+  min-width: 160px;
+  width: 160px;
+  flex-shrink: 0;
+}
+
 /* ── 모바일 반응형 ────────────────────────────────────────── */
 @media (max-width: 768px) {
   .app-frame {
@@ -316,6 +330,15 @@ body {
   /* 카드 */
   .card { padding: 14px 16px; }
   .card.hero { padding: 18px 18px; }
+
+  /* 히어로 카드 내부 — 세로 스택 */
+  .hero-inner { flex-direction: column; gap: 14px; }
+  .hero-ratio { width: 100%; min-width: 0; text-align: left; }
+  .hero-inner .num[style] { font-size: 36px !important; }
+
+  /* 연도별 테이블 폰트 축소 */
+  .year-table-row { font-size: 11px !important; }
+  .year-table-row span { font-size: 11px !important; }
 }
 
 @media (max-width: 400px) {
