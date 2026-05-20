@@ -138,7 +138,7 @@ function GrowthChart({ data }) {
 
 // ── 연도별 테이블 (상위 몇 개) ────────────────────────────────
 function YearlyTable({ data }) {
-  const rows = data.filter((_, i) => i > 0 && (i % 5 === 0 || i === data.length - 1));
+  const rows = data.filter((_, i) => i > 0);
   return (
     <div style={{ display: 'grid', gap: 6 }}>
       <div style={{ display: 'grid', gridTemplateColumns: '60px 1fr 1fr 1fr', gap: 8,
