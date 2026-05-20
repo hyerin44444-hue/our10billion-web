@@ -19,7 +19,7 @@ export function KakaoShare({ title, description, imageUrl }) {
       content: {
         title,
         description,
-        imageUrl: imageUrl ?? `${window.location.origin}/og-image.png`,
+        imageUrl: imageUrl ?? `${window.location.origin}/og-image.png?v=2`,
         link: {
           mobileWebUrl: window.location.href,
           webUrl: window.location.href,
