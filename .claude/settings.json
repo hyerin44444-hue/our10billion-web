@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "read -r json; f=$(echo \"$json\" | jq -r '.tool_input.file_path // .tool_response.filePath // empty'); if [ -z \"$f\" ]; then exit 0; fi; cd /Users/hyerin/hyerin_project && git add \"$f\" && git diff --cached --quiet && exit 0; git commit -m \"auto: update $(basename $f)\" && git push origin main",
+            "command": "f=$(jq -r '.tool_input.file_path // .tool_response.filePath // empty'); [ -z \"$f\" ] && exit 0; git -C /Users/hyerin/hyerin_project add \"$f\" 2>/dev/null && git -C /Users/hyerin/hyerin_project diff --cached --quiet && exit 0; git -C /Users/hyerin/hyerin_project commit -m \"auto: update $(basename \\\"$f\\\")\" && git -C /Users/hyerin/hyerin_project push origin main 2>/dev/null || true",
             "timeout": 30,
             "statusMessage": "GitHub에 자동 푸시 중..."
           }
