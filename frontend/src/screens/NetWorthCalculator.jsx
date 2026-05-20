@@ -1,5 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { DonutBreakdown, KakaoShare } from '../components/Shared';
+
+function sp() { return new URLSearchParams(window.location.search); }
+function getNum(key, fallback) { const v = sp().get(key); return v !== null ? Number(v) : fallback; }
 
 // ── 포맷 ─────────────────────────────────────────────────────
 function fmt(wan) {
@@ -93,8 +96,24 @@ const DEBT_CATS = [
 
 // ── 메인 컴포넌트 ─────────────────────────────────────────────
 export default function NetWorthCalculator() {
-  const [assets, setAssets] = useState({ cash: 0, invest: 0, pension: 0, realty: 0, other: 0 });
-  const [debts, setDebts]   = useState({ mortgage: 0, credit: 0, car: 0, other: 0 });
+  const [assets, setAssets] = useState(() => ({
+    cash: getNum('ac', 0), invest: getNum('ai', 0), pension: getNum('ap', 0),
+    realty: getNum('ar', 0), other: getNum('ao', 0),
+  }));
+  const [debts, setDebts] = useState(() => ({
+    mortgage: getNum('dm', 0), credit: getNum('dc', 0),
+    car: getNum('dcar', 0), other: getNum('do', 0),
+  }));
+
+  useEffect(() => {
+    const p = sp();
+    p.set('screen', 'networth');
+    p.set('ac', assets.cash); p.set('ai', assets.invest); p.set('ap', assets.pension);
+    p.set('ar', assets.realty); p.set('ao', assets.other);
+    p.set('dm', debts.mortgage); p.set('dc', debts.credit);
+    p.set('dcar', debts.car); p.set('do', debts.other);
+    window.history.replaceState(null, '', `?${p}`);
+  }, [assets, debts]);
 
   const setAsset = (id, val) => setAssets(prev => ({ ...prev, [id]: val }));
   const setDebt  = (id, val) => setDebts(prev => ({ ...prev, [id]: val }));
