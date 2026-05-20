@@ -1,0 +1,15 @@
+{
+  "name": "moatda · 모았다",
+  "short_name": "moatda",
+  "description": "30대 부부 자산 시뮬레이터",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff4ef",
+  "theme_color": "#ef6f5b",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" }
+  ]
+}
