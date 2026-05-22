@@ -225,7 +225,7 @@ export default function LoanCalculator() {
       <div className="card dim" style={{ padding: '14px 18px' }}>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {METHODS.map(m => (
-            <button key={m.id} onClick={() => setMethod(m.id)} style={{
+            <button key={m.id} onClick={() => { setMethod(m.id); sync('lm', m.id); }} style={{
               flex: 1, minWidth: 100, padding: '10px 12px', borderRadius: 12, cursor: 'pointer',
               border: method === m.id ? '2px solid var(--coral)' : '1px solid var(--line)',
               background: method === m.id ? 'var(--coral-bg)' : 'var(--surface)',
