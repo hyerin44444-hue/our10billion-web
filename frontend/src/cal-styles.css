@@ -382,9 +382,8 @@ input[type='range']::-webkit-slider-runnable-track {
   .salary-topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
 
   /* 기준 중위소득 모바일 */
-  .median-household-sel {
-    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  }
+  .median-household-sel { display: block; }
+  .median-base-cards    { display: none; }
   .median-table-desktop { display: none; }
   .median-table-mobile  { display: block; }
 
