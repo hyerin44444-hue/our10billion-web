@@ -52,6 +52,11 @@ body {
   grid-template-columns: 260px 1fr;
   overflow: hidden;
 }
+.app-frame-flow {
+  overflow: visible;
+  height: auto;
+  min-height: 100%;
+}
 
 /* ── 사이드바 ─────────────────────────────────────────────── */
 .sb {
