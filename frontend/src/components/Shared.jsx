@@ -105,6 +105,17 @@ const MENU_ITEMS = [
   { id: 'median',      icon: '📊', label: '기준 중위소득 표',     dot: 'blue' },
 ];
 
+export function AdFitBanner() {
+  return (
+    <div style={{ textAlign: 'center', flexShrink: 0 }}>
+      <ins className="kakao_ad_area" style={{ display: 'none' }}
+        data-ad-unit="DAN-h3Ve3xuRRLMmQhQr"
+        data-ad-width="320"
+        data-ad-height="50" />
+    </div>
+  );
+}
+
 export function Sidebar({ active, onNavigate, drawerOpen }) {
   return (
     <aside className={`sb scroll${drawerOpen ? ' drawer-open' : ''}`}>
