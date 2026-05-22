@@ -257,9 +257,15 @@ const MONTHLY = [
   ["1,200만원","8,376,740","3,623,260","535,500","371,280","27,400","77,350","2,374,300","237,430"],
 ];
 
-const HEADERS = ['연봉', '실수령액', '공제액계', '국민연금', '건강보험', '장기요양', '고용보험', '소득세', '지방소득세'];
+const HEADERS = ['연봉', '세전 월급', '실수령액', '공제액계', '국민연금', '건강보험', '장기요양', '고용보험', '소득세', '지방소득세'];
 
-const COL_COLORS = [null, 'var(--coral)', 'var(--text-2)', 'var(--purple)', 'var(--blue)', 'var(--blue)', 'var(--green)', 'var(--orange)', 'var(--orange)'];
+const COL_COLORS = [null, 'var(--text-2)', 'var(--coral)', 'var(--text-2)', 'var(--purple)', 'var(--blue)', 'var(--blue)', 'var(--green)', 'var(--orange)', 'var(--orange)'];
+
+// "1,000만원" → 세전 월급(원) 계산
+function calcMonthlyGross(annualLabel) {
+  const man = Number(annualLabel.replace(/[^0-9]/g, ''));
+  return Math.round(man * 10000 / 12).toLocaleString();
+}
 
 export default function SalaryCalculator() {
   return (
