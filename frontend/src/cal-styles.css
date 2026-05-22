@@ -299,6 +299,10 @@ input[type='range']::-webkit-slider-runnable-track {
 }
 
 /* ── 주식 물타기 히어로 ──────────────────────────────────────── */
+/* ── ETF 계산기 히어로 ───────────────────────────────────────── */
+.etf-hero-value { font-size: 52px; }
+.etf-hero-unit  { font-size: 22px; font-weight: 600; color: var(--on-light-2); margin-left: 4px; }
+
 /* ── 은퇴 계산기 히어로 ──────────────────────────────────────── */
 .retire-hero-value { font-size: 52px; }
 .retire-hero-unit  { font-size: 22px; font-weight: 600; color: var(--on-light-2); margin-left: 4px; }
