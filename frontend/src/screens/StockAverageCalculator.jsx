@@ -371,7 +371,7 @@ export default function StockAverageCalculator() {
               const pnlRate = ((currentPrice - b.price) / b.price) * 100;
               const weight  = (amount / result.totalAmount) * 100;
               return (
-                <div key={b.id} style={{ display: 'grid', gridTemplateColumns: '40px 1fr 1fr 1fr 1fr 1fr', gap: 8,
+                <div key={b.id} className="stock-detail-grid" style={{ display: 'grid', gap: 8,
                   fontSize: 13, padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.04)', alignItems: 'center' }}>
                   <div style={{
                     width: 24, height: 24, borderRadius: '50%', fontSize: 11, fontWeight: 700,
