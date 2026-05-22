@@ -268,7 +268,12 @@ function calcMonthlyGross(annualLabel) {
   return Math.round(man * 10000 / 12).toLocaleString();
 }
 
+const DETAIL_LABELS = ['국민연금', '건강보험', '장기요양', '고용보험', '소득세', '지방소득세'];
+const DETAIL_COLORS = ['var(--purple)', 'var(--blue)', 'var(--blue)', 'var(--green)', 'var(--orange)', 'var(--orange)'];
+
 export default function SalaryCalculator() {
+  const [selectedIdx, setSelectedIdx] = useState(null);
+
   return (
     <>
       <div className="topbar">
