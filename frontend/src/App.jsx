@@ -121,11 +121,8 @@ export default function App() {
       <Sidebar active={active} onNavigate={handleNavigate} drawerOpen={drawerOpen} />
       <main className={`main scroll${active === 'median' || active === 'salary' ? ' main-flow' : ''}`}>
         {screen}
-        <div style={{ flexShrink: 0, textAlign: 'center', paddingTop: 8, paddingBottom: 8 }}>
-          <ins className="kakao_ad_area"
-            data-ad-unit="DAN-h3Ve3xuRRLMmQhQr"
-            data-ad-width="320"
-            data-ad-height="50" />
+        <div style={{ flexShrink: 0, paddingTop: 8, paddingBottom: 8 }}>
+          <AdFitBanner />
         </div>
       </main>
     </div>
