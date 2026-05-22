@@ -129,30 +129,26 @@ export default function MedianIncomeTable() {
       {/* 모바일: 선택된 가구원 수만 표시 */}
       <div className="card median-table-mobile" style={{ padding: 0, overflow: 'hidden' }}>
         <div style={{
-          display: 'grid', gridTemplateColumns: '60px 1fr 1fr',
+          display: 'grid', gridTemplateColumns: '60px 1fr',
           padding: '12px 16px', background: 'var(--surface-2)',
           borderBottom: '1px solid var(--line)',
           fontSize: 11, color: 'var(--text-3)', fontWeight: 700,
           letterSpacing: '0.04em', textTransform: 'uppercase', gap: 0,
         }}>
           <span>비율</span>
-          <span style={{ textAlign: 'center' }}>복지사업</span>
-          <span style={{ textAlign: 'right' }}>{household}인 기준</span>
+          <span style={{ textAlign: 'right' }}>{household}인 가구</span>
         </div>
         {ROWS.map((row) => {
           const won = Math.round(BASE[household] * row.pct / 100);
           return (
             <div key={row.pct} style={{
-              display: 'grid', gridTemplateColumns: '60px 1fr 1fr',
+              display: 'grid', gridTemplateColumns: '60px 1fr',
               padding: '11px 16px', borderBottom: '1px solid var(--line)',
               background: row.highlight ? 'rgba(108,63,197,0.05)' : 'transparent',
               gap: 0, alignItems: 'center',
             }}>
               <span className="num" style={{ fontSize: 14, fontWeight: row.highlight ? 800 : 600, color: row.color }}>
                 {row.label}
-              </span>
-              <span style={{ fontSize: 12, color: 'var(--text-3)', paddingRight: 8 }}>
-                {row.program}
               </span>
               <span className="num" style={{
                 textAlign: 'right', fontSize: 13,
