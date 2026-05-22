@@ -76,8 +76,8 @@ export default function MedianIncomeTable() {
         </div>
       </div>
 
-      {/* 기준값 카드 */}
-      <div className="grid-3">
+      {/* 기준값 카드 (데스크탑만) */}
+      <div className="grid-3 median-base-cards">
         {[1,2,3,4,5,6].map(n => (
           <div key={n} className="card" style={{ padding: '14px 18px' }}>
             <div className="k">{n}인 가구 · 100%</div>
