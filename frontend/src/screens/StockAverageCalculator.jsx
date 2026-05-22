@@ -309,36 +309,25 @@ export default function StockAverageCalculator() {
       {/* 결과 히어로 */}
       {result && (
         <div className="card hero">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <div className="stock-hero-row">
             <div>
               <div className="k-light">평균 매수 단가</div>
-              <div className="num" style={{ fontSize: 52, lineHeight: 1.1, marginTop: 8 }}>
-                {fmtPrice(result.avgPrice)}
-              </div>
+              <div className="num stock-hero-main">{fmtPrice(result.avgPrice)}</div>
               <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
                 <span className="chip light">총 {result.totalQty.toLocaleString()}주</span>
                 <span className="chip light">총 {fmtWon(result.totalAmount)} 투자</span>
                 {result.riseNeeded > 0 && (
-                  <span className="chip light">
-                    본전까지 +{result.riseNeeded.toFixed(2)}% 필요
-                  </span>
+                  <span className="chip light">본전까지 +{result.riseNeeded.toFixed(2)}% 필요</span>
                 )}
               </div>
             </div>
 
-            {/* 현재 손익 */}
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: 'right', flexShrink: 0 }}>
               <div className="k-light">현재 평가손익</div>
-              <div className="num" style={{
-                fontSize: 36, lineHeight: 1.1, marginTop: 8,
-                color: isLoss ? 'var(--on-light-2)' : 'var(--on-light)',
-              }}>
+              <div className="num stock-hero-sub" style={{ color: isLoss ? 'var(--on-light-2)' : 'var(--on-light)' }}>
                 {result.pnl >= 0 ? '+' : ''}{fmtWon(result.pnl)}
               </div>
-              <div style={{
-                fontSize: 18, fontWeight: 700, marginTop: 4,
-                color: isLoss ? '#c0524a' : '#2e7d4f',
-              }}>
+              <div className="stock-hero-rate" style={{ color: isLoss ? '#c0524a' : '#2e7d4f' }}>
                 {result.pnlRate >= 0 ? '+' : ''}{result.pnlRate.toFixed(2)}%
               </div>
               <PnlBar pnlRate={result.pnlRate} />
