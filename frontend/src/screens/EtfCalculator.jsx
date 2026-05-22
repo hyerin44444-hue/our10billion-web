@@ -49,7 +49,7 @@ function InputCard({ label, value, unit, min, max, step, onChange, isRate }) {
   return (
     <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
       <div className="k">{label}</div>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, borderBottom: '2px solid var(--coral)', paddingBottom: 4 }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, borderBottom: '1px solid var(--coral)', paddingBottom: 4 }}>
         <input
           type="text"
           value={display}
