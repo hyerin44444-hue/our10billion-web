@@ -106,7 +106,7 @@ export default function App() {
   }[active];
 
   return (
-    <div className="app-frame">
+    <div className={`app-frame${active === 'median' ? ' app-frame-flow' : ''}`}>
       {/* 모바일 상단 바 */}
       <div className="mobile-topbar">
         <button className="hamburger" onClick={() => setDrawerOpen(o => !o)}>
