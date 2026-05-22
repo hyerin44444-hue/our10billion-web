@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { AdFitBanner } from '../components/Shared';
 
 // 2026년 기준 중위소득 (원/월) - 출처: 보건복지부 고시
@@ -10,7 +11,6 @@ const BASE = {
   6: 8_555_952,
 };
 
-// % 구간별 복지사업 레이블
 const ROWS = [
   { pct: 50,  label: '50%',  program: '교육급여 / 차상위계층',  color: '#f57c00' },
   { pct: 60,  label: '60%',  program: '차상위 복지사업',         color: '#f57c00' },
@@ -37,6 +37,8 @@ function fmtWon(won) {
 }
 
 export default function MedianIncomeTable() {
+  const [household, setHousehold] = useState(1);
+
   return (
     <>
       <div className="topbar">
@@ -50,83 +52,109 @@ export default function MedianIncomeTable() {
 
       <AdFitBanner />
 
+      {/* 모바일: 가구원 수 선택 */}
+      <div className="median-household-sel">
+        <span style={{ fontSize: 13, color: 'var(--text-3)', fontWeight: 600 }}>가구원 수</span>
+        <div className="seg">
+          {[1,2,3,4,5,6].map(n => (
+            <button key={n} className={household === n ? 'on' : ''} onClick={() => setHousehold(n)}>
+              {n}인
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* 기준값 카드 */}
       <div className="grid-3">
-        {[
-          { n: 1, won: BASE[1] }, { n: 2, won: BASE[2] }, { n: 3, won: BASE[3] },
-          { n: 4, won: BASE[4] }, { n: 5, won: BASE[5] }, { n: 6, won: BASE[6] },
-        ].map(({ n, won }) => (
+        {[1,2,3,4,5,6].map(n => (
           <div key={n} className="card" style={{ padding: '14px 18px' }}>
             <div className="k">{n}인 가구 · 100%</div>
             <div className="num" style={{ fontSize: 22, marginTop: 6, color: 'var(--purple)' }}>
-              {fmt(won)}<span style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-3)', marginLeft: 3 }}>원/월</span>
+              {fmt(BASE[n])}<span style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-3)', marginLeft: 3 }}>원/월</span>
             </div>
-            <div style={{ fontSize: 12, color: 'var(--text-3)', marginTop: 4 }}>{fmtWon(won)}</div>
+            <div style={{ fontSize: 12, color: 'var(--text-3)', marginTop: 4 }}>{fmtWon(BASE[n])}</div>
           </div>
         ))}
       </div>
 
-      {/* 메인 표 */}
-      <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-
-        {/* 헤더 */}
+      {/* 데스크탑: 전체 표 */}
+      <div className="card median-table-desktop" style={{ padding: 0, overflow: 'hidden' }}>
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: '52px repeat(6, 1fr)',
-          padding: '12px 16px',
-          background: 'var(--surface-2)',
+          display: 'grid', gridTemplateColumns: '52px repeat(6, 1fr)',
+          padding: '12px 16px', background: 'var(--surface-2)',
           borderBottom: '1px solid var(--line)',
           fontSize: 11, color: 'var(--text-3)', fontWeight: 700,
-          letterSpacing: '0.04em', textTransform: 'uppercase',
-          gap: 0,
+          letterSpacing: '0.04em', textTransform: 'uppercase', gap: 0,
         }}>
           <span>비율</span>
           {[1,2,3,4,5,6].map(n => (
             <span key={n} style={{ textAlign: 'right' }}>{n}인 가구</span>
           ))}
         </div>
-
-        {/* 데이터 행 */}
         {ROWS.map((row) => (
-          <div
-            key={row.pct}
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '52px repeat(6, 1fr)',
-              padding: '11px 16px',
-              borderBottom: '1px solid var(--line)',
-              background: row.highlight ? 'rgba(108,63,197,0.05)' : 'transparent',
-              gap: 0,
-              alignItems: 'center',
-            }}
-          >
-            {/* 비율 */}
-            <span className="num" style={{
-              fontSize: 14,
-              fontWeight: row.highlight ? 800 : 600,
-              color: row.color,
-            }}>
+          <div key={row.pct} style={{
+            display: 'grid', gridTemplateColumns: '52px repeat(6, 1fr)',
+            padding: '11px 16px', borderBottom: '1px solid var(--line)',
+            background: row.highlight ? 'rgba(108,63,197,0.05)' : 'transparent',
+            gap: 0, alignItems: 'center',
+          }}>
+            <span className="num" style={{ fontSize: 14, fontWeight: row.highlight ? 800 : 600, color: row.color }}>
               {row.label}
             </span>
-
-            {/* 1~6인 금액 */}
-            {[1,2,3,4,5,6].map(n => {
-              const won = Math.round(BASE[n] * row.pct / 100);
-              return (
-                <span key={n} className="num" style={{
-                  textAlign: 'right', fontSize: 12,
-                  fontWeight: row.highlight ? 700 : 400,
-                  color: row.highlight ? 'var(--purple)' : 'var(--text)',
-                }}>
-                  {won.toLocaleString()}
-                </span>
-              );
-            })}
+            {[1,2,3,4,5,6].map(n => (
+              <span key={n} className="num" style={{
+                textAlign: 'right', fontSize: 12,
+                fontWeight: row.highlight ? 700 : 400,
+                color: row.highlight ? 'var(--purple)' : 'var(--text)',
+              }}>
+                {Math.round(BASE[n] * row.pct / 100).toLocaleString()}
+              </span>
+            ))}
           </div>
         ))}
       </div>
 
-<div className="card dim" style={{ padding: '10px 16px', fontSize: 12, color: 'var(--text-3)', lineHeight: 1.6 }}>
+      {/* 모바일: 선택된 가구원 수만 표시 */}
+      <div className="card median-table-mobile" style={{ padding: 0, overflow: 'hidden' }}>
+        <div style={{
+          display: 'grid', gridTemplateColumns: '60px 1fr 1fr',
+          padding: '12px 16px', background: 'var(--surface-2)',
+          borderBottom: '1px solid var(--line)',
+          fontSize: 11, color: 'var(--text-3)', fontWeight: 700,
+          letterSpacing: '0.04em', textTransform: 'uppercase', gap: 0,
+        }}>
+          <span>비율</span>
+          <span style={{ textAlign: 'center' }}>복지사업</span>
+          <span style={{ textAlign: 'right' }}>{household}인 기준</span>
+        </div>
+        {ROWS.map((row) => {
+          const won = Math.round(BASE[household] * row.pct / 100);
+          return (
+            <div key={row.pct} style={{
+              display: 'grid', gridTemplateColumns: '60px 1fr 1fr',
+              padding: '11px 16px', borderBottom: '1px solid var(--line)',
+              background: row.highlight ? 'rgba(108,63,197,0.05)' : 'transparent',
+              gap: 0, alignItems: 'center',
+            }}>
+              <span className="num" style={{ fontSize: 14, fontWeight: row.highlight ? 800 : 600, color: row.color }}>
+                {row.label}
+              </span>
+              <span style={{ fontSize: 12, color: 'var(--text-3)', paddingRight: 8 }}>
+                {row.program}
+              </span>
+              <span className="num" style={{
+                textAlign: 'right', fontSize: 13,
+                fontWeight: row.highlight ? 700 : 500,
+                color: row.highlight ? 'var(--purple)' : 'var(--text)',
+              }}>
+                {won.toLocaleString()}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="card dim" style={{ padding: '10px 16px', fontSize: 12, color: 'var(--text-3)', lineHeight: 1.6 }}>
         ※ 출처: 보건복지부 2026년 기준 중위소득 고시 · 복지사업 기준은 사업마다 다를 수 있으며 참고용입니다
       </div>
     </>
