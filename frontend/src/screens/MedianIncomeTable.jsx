@@ -52,15 +52,27 @@ export default function MedianIncomeTable() {
 
       <AdFitBanner />
 
-      {/* 모바일: 가구원 수 선택 */}
+      {/* 모바일: 가구원 수 선택 + 기준액 표시 */}
       <div className="median-household-sel">
-        <span style={{ fontSize: 13, color: 'var(--text-3)', fontWeight: 600 }}>가구원 수</span>
-        <div className="seg">
-          {[1,2,3,4,5,6].map(n => (
-            <button key={n} className={household === n ? 'on' : ''} onClick={() => setHousehold(n)}>
-              {n}인
-            </button>
-          ))}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
+          <span style={{ fontSize: 13, color: 'var(--text-3)', fontWeight: 600 }}>가구원 수</span>
+          <div className="seg">
+            {[1,2,3,4,5,6].map(n => (
+              <button key={n} className={household === n ? 'on' : ''} onClick={() => setHousehold(n)}>
+                {n}인
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="card" style={{ padding: '14px 18px', width: '100%' }}>
+          <div className="k">{household}인 가구 · 기준 중위소득 (100%)</div>
+          <div className="num" style={{ fontSize: 28, marginTop: 6, color: 'var(--purple)' }}>
+            {BASE[household].toLocaleString()}
+            <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-3)', marginLeft: 4 }}>원/월</span>
+          </div>
+          <div style={{ fontSize: 12, color: 'var(--text-3)', marginTop: 4 }}>
+            {fmt(BASE[household])}원/월
+          </div>
         </div>
       </div>
 
