@@ -291,7 +291,7 @@ export default function SalaryCalculator() {
       <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
         <div>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
+            <thead className="salary-thead">
               <tr style={{ background: 'var(--surface)', borderBottom: '1px solid var(--line)' }}>
                 {HEADERS.map((h, i) => (
                   <th key={h} className={i >= 4 ? 'salary-col-detail' : ''} style={{
