@@ -99,6 +99,7 @@ const MENU_ITEMS = [
   { id: 'etf',         icon: '📈', label: 'ETF 적립식 계산기',   dot: 'orange' },
   { id: 'retirement',  icon: '🌴', label: '은퇴 가능 계산기',    dot: 'purple' },
   { id: 'billion',     icon: '🎯', label: '10억까지 얼마나',      dot: 'blue' },
+  { id: 'stock',       icon: '📉', label: '주식 물타기 계산기',   dot: 'green' },
 ];
 
 export function Sidebar({ active, onNavigate }) {
