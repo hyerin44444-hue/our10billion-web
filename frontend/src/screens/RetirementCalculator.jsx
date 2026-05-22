@@ -239,6 +239,8 @@ export default function RetirementCalculator() {
         </div>
       )}
 
+      <AdFitBanner />
+
       {/* 결과 히어로 */}
       <div className="card hero">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
