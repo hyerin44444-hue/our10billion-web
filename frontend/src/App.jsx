@@ -90,9 +90,7 @@ export default function App() {
 
   const handleNavigate = (id) => {
     setActive(id);
-    const sp = new URLSearchParams(window.location.search);
-    sp.set('screen', id);
-    window.history.pushState(null, '', `?${sp}`);
+    window.history.pushState(null, '', `?screen=${id}`);
   };
 
   const screen = {
