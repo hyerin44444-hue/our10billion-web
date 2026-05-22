@@ -64,7 +64,7 @@ function SliderCard({ label, value, unit, min, max, step, onChange, isRate }) {
   return (
     <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
       <div className="k">{label}</div>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, borderBottom: '1px solid var(--coral)', paddingBottom: 4 }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, borderBottom: '1px solid var(--coral)', paddingBottom: 4 }}>
         <input
           type="text"
           value={display}
@@ -75,10 +75,11 @@ function SliderCard({ label, value, unit, min, max, step, onChange, isRate }) {
             if (!isNaN(n)) onChange(Math.min(Math.max(n, min), max));
             setFocused(false);
           }}
-          style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
-            color: 'var(--text)', fontFamily: 'inherit', fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em' }}
+          style={{ flex: 1, minWidth: 0, background: 'none', border: 'none', outline: 'none',
+            color: 'var(--text)', fontFamily: 'inherit', fontSize: 18, fontWeight: 700,
+            letterSpacing: '-0.02em', overflow: 'hidden', textOverflow: 'ellipsis' }}
         />
-        <span style={{ fontSize: 13, color: 'var(--text-3)', flexShrink: 0 }}>{unit}</span>
+        <span style={{ fontSize: 13, color: 'var(--text-3)', flexShrink: 0, whiteSpace: 'nowrap' }}>{unit}</span>
       </div>
       <input type="range" min={min} max={max} step={step} value={Math.min(Math.max(value, min), max)}
         onChange={e => onChange(Number(e.target.value))}
