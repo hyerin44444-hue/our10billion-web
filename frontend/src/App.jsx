@@ -43,6 +43,10 @@ const SCREEN_META = {
     title: '2026 기준 중위소득 표 | 모았다',
     description: '2026년 보건복지부 고시 기준 중위소득과 복지사업별 소득 기준(50%~200%)을 가구원수별로 확인하세요.',
   },
+  loan: {
+    title: '대출 이자 계산기 | 모았다',
+    description: '원리금균등·원금균등·만기일시 상환 방식별 월 납입금, 총이자, 연도별 상환 내역을 계산하세요.',
+  },
 };
 
 function updateMeta(screenId) {
