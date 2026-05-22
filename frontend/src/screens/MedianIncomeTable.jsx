@@ -108,14 +108,6 @@ export default function MedianIncomeTable() {
               {row.label}
             </span>
 
-            {/* 사업명 */}
-            <span style={{
-              fontSize: 12, color: row.highlight ? 'var(--purple)' : 'var(--text-3)',
-              fontWeight: row.highlight ? 700 : 400,
-            }}>
-              {row.program}
-            </span>
-
             {/* 1~6인 금액 */}
             {[1,2,3,4,5,6].map(n => {
               const won = Math.round(BASE[n] * row.pct / 100);
