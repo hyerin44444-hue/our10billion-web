@@ -186,6 +186,11 @@ export default function BillionCalculator() {
           </div>
         </div>
         <div className="right">
+          <CopyLinkBtn />
+          <KakaoShare
+            title={!result.already && !result.impossible ? `${fmt(target)}원, ${result.years}년 후 달성 가능!` : `목표 자산 시뮬레이터`}
+            description={!result.already && !result.impossible ? `월 ${fmt(monthly)}원 저축으로 ${Math.floor(result.achieveAge ?? 0)}세에 목표 달성 · 모았다 시뮬레이터` : `모았다 시뮬레이터`}
+          />
           {/* 목표 프리셋 */}
           <div className="seg">
             {TARGETS.map(t => (
