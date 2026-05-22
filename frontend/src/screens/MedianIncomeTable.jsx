@@ -122,23 +122,7 @@ export default function MedianIncomeTable() {
         ))}
       </div>
 
-      {/* 정확한 수치 표 (100% 기준) */}
-      <div className="card">
-        <div className="k" style={{ marginBottom: 14 }}>100% 기준 정확한 수치 (원/월)</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 10 }}>
-          {[1,2,3,4,5,6].map(n => (
-            <div key={n} style={{ padding: '12px 14px', background: 'var(--surface-2)',
-              borderRadius: 12, border: '1px solid var(--line)' }}>
-              <div className="k" style={{ marginBottom: 6 }}>{n}인 가구</div>
-              <div className="num" style={{ fontSize: 15, color: 'var(--purple)' }}>
-                {BASE[n].toLocaleString()}원
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="card dim" style={{ padding: '10px 16px', fontSize: 12, color: 'var(--text-3)', lineHeight: 1.6 }}>
+<div className="card dim" style={{ padding: '10px 16px', fontSize: 12, color: 'var(--text-3)', lineHeight: 1.6 }}>
         ※ 출처: 보건복지부 2026년 기준 중위소득 고시 · 복지사업 기준은 사업마다 다를 수 있으며 참고용입니다
       </div>
     </>
