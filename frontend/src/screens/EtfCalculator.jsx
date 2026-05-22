@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { KakaoShare, CopyLinkBtn } from '../components/Shared';
+import { KakaoShare, CopyLinkBtn, AdFitBanner } from '../components/Shared';
 
 function sp() { return new URLSearchParams(window.location.search); }
 function getNum(key, fallback) { const v = sp().get(key); return v !== null ? Number(v) : fallback; }
