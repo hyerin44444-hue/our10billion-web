@@ -1,3 +1,5 @@
+import { AdFitBanner } from '../components/Shared';
+
 // 2026년 기준 중위소득 (원/월) - 출처: 보건복지부 고시
 const BASE = {
   1: 2_564_238,
