@@ -48,6 +48,8 @@ export default function MedianIncomeTable() {
         </div>
       </div>
 
+      <AdFitBanner />
+
       {/* 기준값 카드 */}
       <div className="grid-3">
         {[
