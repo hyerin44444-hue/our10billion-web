@@ -135,8 +135,8 @@ export function Sidebar({ active, onNavigate, drawerOpen }) {
       <div style={{ padding: '12px 10px 16px', textAlign: 'center', flexShrink: 0 }}>
         <ins className="kakao_ad_area" style={{ display: 'none' }}
           data-ad-unit="DAN-wuDPkWpzN6Lq4cHe"
-          data-ad-width="160"
-          data-ad-height="600" />
+          data-ad-width="320"
+          data-ad-height="100" />
       </div>
     </aside>
   );
