@@ -372,6 +372,11 @@ input[type='range']::-webkit-slider-runnable-track {
   .salary-col-detail { display: none; }
   .salary-topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
 
+  /* 은퇴 히어로 모바일 */
+  .retire-hero-value { font-size: 32px; }
+  .retire-hero-unit  { font-size: 16px; }
+  .retire-indicator  { display: none; }
+
   /* 10억 히어로 모바일 */
   .billion-years   { font-size: 36px; }
   .billion-months  { font-size: 28px; }
