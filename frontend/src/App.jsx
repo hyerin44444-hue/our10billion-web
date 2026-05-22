@@ -8,8 +8,9 @@ import BillionCalculator        from './screens/BillionCalculator';
 import StockAverageCalculator   from './screens/StockAverageCalculator';
 import SalaryCalculator         from './screens/SalaryCalculator';
 import MedianIncomeTable        from './screens/MedianIncomeTable';
+import LoanCalculator           from './screens/LoanCalculator';
 
-const VALID_SCREENS = ['networth', 'etf', 'retirement', 'billion', 'stock', 'salary', 'median'];
+const VALID_SCREENS = ['networth', 'etf', 'retirement', 'billion', 'stock', 'salary', 'median', 'loan'];
 
 const BASE_URL = 'https://moatda.onrender.com';
 
