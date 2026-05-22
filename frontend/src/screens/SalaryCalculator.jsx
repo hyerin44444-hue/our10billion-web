@@ -298,24 +298,27 @@ export default function SalaryCalculator() {
               </tr>
             </thead>
             <tbody>
-              {ANNUAL.map((row, i) => (
-                <tr
-                  key={i}
-                  className="salary-tr"
-                  style={{ borderBottom: '1px solid var(--line)' }}
-                >
-                  {row.map((cell, j) => (
-                    <td key={j} className={`${j > 0 ? 'num' : ''} ${j >= 3 ? 'salary-col-detail' : ''}`} style={{
-                      padding: '9px 14px',
-                      textAlign: j === 0 ? 'left' : 'right',
-                      fontSize: 13,
-                      color: COL_COLORS[j] || 'var(--text-1)',
-                      fontWeight: j === 0 ? 500 : j === 1 ? 700 : 400,
-                      whiteSpace: 'nowrap',
-                    }}>{cell}</td>
-                  ))}
-                </tr>
-              ))}
+              {ANNUAL.map((row, i) => {
+                const displayRow = [row[0], calcMonthlyGross(row[0]), ...row.slice(1)];
+                return (
+                  <tr
+                    key={i}
+                    className="salary-tr"
+                    style={{ borderBottom: '1px solid var(--line)' }}
+                  >
+                    {displayRow.map((cell, j) => (
+                      <td key={j} className={`${j > 0 ? 'num' : ''} ${j >= 4 ? 'salary-col-detail' : ''}`} style={{
+                        padding: '9px 14px',
+                        textAlign: j === 0 ? 'left' : 'right',
+                        fontSize: 13,
+                        color: COL_COLORS[j] || 'var(--text-1)',
+                        fontWeight: j === 0 ? 500 : j === 2 ? 700 : 400,
+                        whiteSpace: 'nowrap',
+                      }}>{cell}</td>
+                    ))}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
