@@ -390,6 +390,7 @@ input[type='range']::-webkit-slider-runnable-track {
   .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid-3 { grid-template-columns: minmax(0, 1fr); }
   .grid-2 { grid-template-columns: minmax(0, 1fr) !important; }
+  .salary-thead { top: 50px; }
   .salary-col-detail { display: none; }
   .salary-detail-row { display: table-row; }
   .salary-topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
