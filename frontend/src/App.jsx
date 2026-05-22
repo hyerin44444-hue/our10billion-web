@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './cal-styles.css';
-import { Sidebar } from './components/Shared';
+import { Sidebar, AdFitBanner } from './components/Shared';
 import NetWorthCalculator       from './screens/NetWorthCalculator';
 import EtfCalculator            from './screens/EtfCalculator';
 import RetirementCalculator     from './screens/RetirementCalculator';
