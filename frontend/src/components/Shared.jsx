@@ -101,6 +101,7 @@ const MENU_ITEMS = [
   { id: 'billion',     icon: '🎯', label: '10억까지 얼마나',      dot: 'blue' },
   { id: 'stock',       icon: '📉', label: '주식 물타기 계산기',   dot: 'green' },
   { id: 'salary',      icon: '💵', label: '연봉 실수령액 계산기', dot: 'yellow' },
+  { id: 'median',      icon: '📊', label: '기준 중위소득 표',     dot: 'blue' },
 ];
 
 export function Sidebar({ active, onNavigate }) {
