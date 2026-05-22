@@ -17,7 +17,7 @@ const SCREEN_TITLES = {
   retirement: '은퇴 가능 계산기',
   billion:    '10억까지 얼마나',
   stock:      '주식 물타기 계산기',
-  salary:     '연봉 실수령액 계산기',
+  salary:     '연봉 실수령액 표',
   median:     '기준 중위소득 표',
 };
 
@@ -66,6 +66,12 @@ export default function App() {
       <Sidebar active={active} onNavigate={handleNavigate} />
       <main className="main scroll">
         {screen}
+        <div style={{ flexShrink: 0, textAlign: 'center', paddingTop: 4 }}>
+          <ins className="kakao_ad_area" style={{ display: 'none' }}
+            data-ad-unit="DAN-h3Ve3xuRRLMmQhQr"
+            data-ad-width="320"
+            data-ad-height="50" />
+        </div>
       </main>
     </div>
   );
