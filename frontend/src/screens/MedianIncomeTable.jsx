@@ -76,18 +76,6 @@ export default function MedianIncomeTable() {
         </div>
       </div>
 
-      {/* 기준값 카드 (데스크탑만) */}
-      <div className="grid-3 median-base-cards">
-        {[1,2,3,4,5,6].map(n => (
-          <div key={n} className="card" style={{ padding: '14px 18px' }}>
-            <div className="k">{n}인 가구 · 100%</div>
-            <div className="num" style={{ fontSize: 22, marginTop: 6, color: 'var(--purple)' }}>
-              {fmt(BASE[n])}<span style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-3)', marginLeft: 3 }}>원/월</span>
-            </div>
-            <div style={{ fontSize: 12, color: 'var(--text-3)', marginTop: 4 }}>{fmtWon(BASE[n])}</div>
-          </div>
-        ))}
-      </div>
 
       {/* 데스크탑: 전체 표 */}
       <div className="card median-table-desktop" style={{ padding: 0, overflow: 'hidden' }}>
