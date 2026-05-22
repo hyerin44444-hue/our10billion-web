@@ -359,7 +359,7 @@ export default function StockAverageCalculator() {
         <div className="card">
           <div className="k" style={{ marginBottom: 14 }}>회차별 상세</div>
           <div style={{ display: 'grid', gap: 0 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '40px 1fr 1fr 1fr 1fr 1fr', gap: 8,
+            <div className="stock-detail-grid" style={{ display: 'grid', gap: 8,
               fontSize: 11, color: 'var(--text-3)', padding: '4px 0 8px', borderBottom: '1px solid var(--line)' }}>
               <span></span>
               <span>매수가</span><span>수량</span><span>매수금액</span>
