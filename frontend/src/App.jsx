@@ -108,6 +108,7 @@ export default function App() {
     stock:      <StockAverageCalculator />,
     salary:     <SalaryCalculator />,
     median:     <MedianIncomeTable />,
+    loan:       <LoanCalculator />,
   }[active];
 
   return (
