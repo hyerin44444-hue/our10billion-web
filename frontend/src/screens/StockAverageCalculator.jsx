@@ -214,9 +214,6 @@ export default function StockAverageCalculator() {
               description={`총 ${result.totalQty}주 · 평가금액 ${fmtWon(result.currentValue)} · 모았다 계산기`}
             />
           )}
-          <button className="pill-btn" style={{ fontSize: 13, padding: '8px 16px' }} onClick={addRow}>
-            <span className="plus">+</span> 매수 추가
-          </button>
         </div>
       </div>
 
