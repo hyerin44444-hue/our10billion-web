@@ -190,6 +190,8 @@ export default function NetWorthCalculator() {
         </div>
       </div>
 
+      <AdFitBanner />
+
       {/* 순자산 히어로 */}
       <div className="card hero">
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
