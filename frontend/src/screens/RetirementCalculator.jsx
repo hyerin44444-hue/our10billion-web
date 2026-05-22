@@ -244,13 +244,13 @@ export default function RetirementCalculator() {
       {/* 결과 히어로 */}
       <div className="card hero">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <div className="k-light">
               {retireAge}세 은퇴 시 예상 자산 ({yearsToRetire}년 후)
             </div>
-            <div className="num" style={{ fontSize: 52, lineHeight: 1.1, marginTop: 8 }}>
+            <div className="num retire-hero-value" style={{ lineHeight: 1.1, marginTop: 8 }}>
               {fmt(retirementPortfolio)}
-              <span style={{ fontSize: 22, fontWeight: 600, color: 'var(--on-light-2)', marginLeft: 4 }}>원</span>
+              <span className="retire-hero-unit">원</span>
             </div>
             <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
               <span className="chip light">
