@@ -264,23 +264,13 @@ const MONTHLY_HEADERS = ['월급', '실수령액', '공제액계', '국민연금
 const COL_COLORS = [null, 'var(--coral)', 'var(--text-2)', 'var(--purple)', 'var(--blue)', 'var(--blue)', 'var(--green)', 'var(--orange)', 'var(--orange)'];
 
 export default function SalaryCalculator() {
-  const [tab, setTab] = useState('annual');
-  const data = tab === 'annual' ? ANNUAL : MONTHLY;
-  const headers = tab === 'annual' ? HEADERS : MONTHLY_HEADERS;
-
   return (
     <>
-      <div className="topbar salary-topbar">
+      <div className="topbar">
         <div className="left">
           <div>
             <div className="title">연봉 실수령액 표</div>
             <div className="sub">2026년 기준 · 부양가족 1명(본인) · 월 비과세 식비 20만원 적용</div>
-          </div>
-        </div>
-        <div className="right">
-          <div className="seg">
-            <button className={tab === 'annual' ? 'on' : ''} onClick={() => setTab('annual')}>연봉</button>
-            <button className={tab === 'monthly' ? 'on' : ''} onClick={() => setTab('monthly')}>월급</button>
           </div>
         </div>
       </div>
