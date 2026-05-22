@@ -10,9 +10,6 @@ const BASE = {
 
 // % 구간별 복지사업 레이블
 const ROWS = [
-  { pct: 30,  label: '30%',  program: '생계급여 (기초수급)',     color: '#e53935' },
-  { pct: 40,  label: '40%',  program: '의료급여 (기초수급)',     color: '#e53935' },
-  { pct: 47,  label: '47%',  program: '주거급여 (기초수급)',     color: '#e53935' },
   { pct: 50,  label: '50%',  program: '교육급여 / 차상위계층',  color: '#f57c00' },
   { pct: 60,  label: '60%',  program: '차상위 복지사업',         color: '#f57c00' },
   { pct: 65,  label: '65%',  program: '한부모가족 지원',         color: '#f57c00' },
