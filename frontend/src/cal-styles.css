@@ -300,6 +300,7 @@ input[type='range']::-webkit-slider-runnable-track {
 
 /* ── 주식 물타기 히어로 ──────────────────────────────────────── */
 .stock-hero-row { display: flex; justify-content: space-between; align-items: flex-start; }
+.stock-detail-grid { grid-template-columns: 40px 1fr 1fr 1fr 1fr 1fr; }
 .stock-hero-main { font-size: 52px; line-height: 1.1; margin-top: 8px; }
 .stock-hero-sub  { font-size: 36px; line-height: 1.1; margin-top: 8px; }
 .stock-hero-rate { font-size: 18px; font-weight: 700; margin-top: 4px; }
