@@ -104,9 +104,9 @@ const MENU_ITEMS = [
   { id: 'median',      icon: '📊', label: '기준 중위소득 표',     dot: 'blue' },
 ];
 
-export function Sidebar({ active, onNavigate }) {
+export function Sidebar({ active, onNavigate, drawerOpen }) {
   return (
-    <aside className="sb scroll">
+    <aside className={`sb scroll${drawerOpen ? ' drawer-open' : ''}`}>
       {/* 브랜드 헤더 */}
       <div className="sb-brand">
         <img src="/lockup-horizontal-kr.svg" alt="모았다" style={{ height: 32, width: 'auto' }} />
