@@ -309,23 +309,45 @@ export default function SalaryCalculator() {
             <tbody>
               {ANNUAL.map((row, i) => {
                 const displayRow = [row[0], calcMonthlyGross(row[0]), ...row.slice(1)];
+                const isOpen = selectedIdx === i;
                 return (
-                  <tr
-                    key={i}
-                    className="salary-tr"
-                    style={{ borderBottom: '1px solid var(--line)' }}
-                  >
-                    {displayRow.map((cell, j) => (
-                      <td key={j} className={`${j > 0 ? 'num' : ''} ${j >= 4 ? 'salary-col-detail' : ''}`} style={{
-                        padding: '9px 14px',
-                        textAlign: j === 0 ? 'left' : 'right',
-                        fontSize: 13,
-                        color: COL_COLORS[j] || 'var(--text-1)',
-                        fontWeight: j === 0 ? 500 : j === 2 ? 700 : 400,
-                        whiteSpace: 'nowrap',
-                      }}>{cell}</td>
-                    ))}
-                  </tr>
+                  <>
+                    <tr
+                      key={i}
+                      className="salary-tr"
+                      style={{
+                        borderBottom: isOpen ? 'none' : '1px solid var(--line)',
+                        background: isOpen ? 'rgba(108,63,197,0.05)' : undefined,
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => setSelectedIdx(isOpen ? null : i)}
+                    >
+                      {displayRow.map((cell, j) => (
+                        <td key={j} className={`${j > 0 ? 'num' : ''} ${j >= 4 ? 'salary-col-detail' : ''}`} style={{
+                          padding: '9px 14px',
+                          textAlign: j === 0 ? 'left' : 'right',
+                          fontSize: 13,
+                          color: COL_COLORS[j] || 'var(--text-1)',
+                          fontWeight: j === 0 ? 500 : j === 2 ? 700 : 400,
+                          whiteSpace: 'nowrap',
+                        }}>{cell}</td>
+                      ))}
+                    </tr>
+                    {isOpen && (
+                      <tr key={`detail-${i}`} className="salary-detail-row">
+                        <td colSpan={HEADERS.length} style={{ padding: '0 12px 12px', borderBottom: '1px solid var(--line)', background: 'rgba(108,63,197,0.05)' }}>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+                            {DETAIL_LABELS.map((label, k) => (
+                              <div key={k} style={{ background: 'var(--surface)', borderRadius: 10, padding: '10px 12px' }}>
+                                <div style={{ fontSize: 10, color: 'var(--text-3)', fontWeight: 600, marginBottom: 4 }}>{label}</div>
+                                <div className="num" style={{ fontSize: 13, color: DETAIL_COLORS[k] }}>{row[k + 3]}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </>
                 );
               })}
             </tbody>
