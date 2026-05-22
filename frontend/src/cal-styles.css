@@ -320,6 +320,10 @@ input[type='range']::-webkit-slider-runnable-track {
 .stock-hero-sub  { font-size: 36px; line-height: 1.1; margin-top: 8px; }
 .stock-hero-rate { font-size: 18px; font-weight: 700; margin-top: 4px; }
 
+/* ── 기준 중위소득 표 ────────────────────────────────────────── */
+.median-household-sel { display: none; }
+.median-table-mobile  { display: none; }
+
 .salary-tr { transition: background 0.1s; }
 .salary-tr:hover { background: var(--surface-2) !important; }
 
