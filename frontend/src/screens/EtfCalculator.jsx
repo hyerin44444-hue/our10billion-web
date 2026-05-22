@@ -223,9 +223,9 @@ export default function EtfCalculator() {
         <div className="hero-inner">
           <div style={{ flex: 1, minWidth: 0 }}>
             <div className="k-light">{years}년 후 예상 평가금액</div>
-            <div className="num" style={{ fontSize: 52, lineHeight: 1.1, marginTop: 8 }}>
+            <div className="num etf-hero-value" style={{ lineHeight: 1.1, marginTop: 8 }}>
               {fmt(finalValue)}
-              <span style={{ fontSize: 22, fontWeight: 600, color: 'var(--on-light-2)', marginLeft: 4 }}>원</span>
+              <span className="etf-hero-unit">원</span>
             </div>
             <div style={{ marginTop: 10, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <span className="chip light">총 납입 {fmt(totalPrincipal)}원</span>
