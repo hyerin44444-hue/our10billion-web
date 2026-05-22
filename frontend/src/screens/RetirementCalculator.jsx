@@ -70,7 +70,7 @@ function SliderCard({ label, value, unit, min, max, step, onChange, isRate }) {
             setFocused(false);
           }}
           style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
-            color: 'var(--text)', fontFamily: 'inherit', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em' }}
+            color: 'var(--text)', fontFamily: 'inherit', fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em' }}
         />
         <span style={{ fontSize: 13, color: 'var(--text-3)', flexShrink: 0 }}>{unit}</span>
       </div>
@@ -120,24 +120,24 @@ function LifecycleChart({ accumYearly, drawdownYearly, retireAge, lifeExpectancy
       {[0.25, 0.5, 0.75].map((p, i) => (
         <line key={i} x1="30" x2={W - 30}
           y1={30 + (H - 60) * p} y2={30 + (H - 60) * p}
-          stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+          stroke="rgba(0,0,0,0.07)" strokeWidth="1" />
       ))}
       {/* 은퇴 시점 구분선 */}
       <line x1={x(retireAge)} x2={x(retireAge)} y1="10" y2={H - 30}
-        stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="4 3" />
+        stroke="rgba(0,0,0,0.2)" strokeWidth="1" strokeDasharray="4 3" />
       <text x={x(retireAge)} y="8" fontSize="10" textAnchor="middle"
-        fill="rgba(255,255,255,0.5)" fontFamily="Inter">은퇴 {retireAge}세</text>
+        fill="rgba(0,0,0,0.45)" fontFamily="Inter">은퇴 {retireAge}세</text>
 
       <path d={accumArea} fill="url(#accum-g)" />
       <path d={accumPath} stroke="#ef6f5b" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      <path d={drawPath} stroke="rgba(255,255,255,0.4)" strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="6 3" />
+      <path d={drawPath} stroke="rgba(0,0,0,0.25)" strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="6 3" />
 
       <circle cx={x(retireAge)} cy={y(accumYearly[accumYearly.length - 1].portfolio)} r="6"
         fill="#ef6f5b" stroke="#fff" strokeWidth="2" />
 
       {labelAges.map(age => (
         <text key={age} x={x(age)} y={H - 10} fontSize="11" textAnchor="middle"
-          fill="rgba(255,255,255,0.4)" fontFamily="Inter">{age}세</text>
+          fill="rgba(0,0,0,0.4)" fontFamily="Inter">{age}세</text>
       ))}
     </svg>
   );
