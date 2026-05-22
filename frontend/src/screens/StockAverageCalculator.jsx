@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { KakaoShare, CopyLinkBtn } from '../components/Shared';
+import { KakaoShare, CopyLinkBtn, AdFitBanner } from '../components/Shared';
 
 // ── 포맷 ─────────────────────────────────────────────────────
 function fmtWon(n) {
