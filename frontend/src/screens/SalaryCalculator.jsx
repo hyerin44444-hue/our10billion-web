@@ -142,69 +142,74 @@ export default function SalaryCalculator() {
         {/* 표 */}
         <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
           {/* 헤더 */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '90px 1fr 1fr 1fr 1fr 80px',
-            gap: 0, padding: '12px 20px',
-            background: 'rgba(255,255,255,0.05)',
-            borderBottom: '1px solid var(--line)',
-            fontSize: 11, color: 'var(--text-3)', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase',
-          }}>
-            <span>연봉</span>
-            <span style={{ textAlign: 'right' }}>월 실수령액</span>
-            <span style={{ textAlign: 'right' }}>연 실수령액</span>
-            <span style={{ textAlign: 'right' }}>공제액</span>
-            <span style={{ textAlign: 'right' }}>실수령률</span>
-            <span style={{ textAlign: 'right' }}>중위소득</span>
-          </div>
+          {(() => {
+            const COL = '80px 90px 72px 82px 62px 88px 62px 64px';
+            const ths = [
+              '연봉', '월 실수령', '국민연금', '건강+요양', '고용보험', '소득세+지방세', '실수령률', '중위소득',
+            ];
+            const colors = [null, null, 'var(--purple)', 'var(--blue)', 'var(--green)', 'var(--orange)', null, null];
+            return (
+              <div style={{ display: 'grid', gridTemplateColumns: COL, gap: 0, padding: '12px 16px',
+                background: 'rgba(255,255,255,0.05)', borderBottom: '1px solid var(--line)',
+                fontSize: 10, color: 'var(--text-3)', fontWeight: 600, letterSpacing: '0.03em', textTransform: 'uppercase' }}>
+                {ths.map((h, i) => (
+                  <span key={h} style={{ textAlign: i > 0 ? 'right' : 'left', color: colors[i] || 'var(--text-3)' }}>{h}</span>
+                ))}
+              </div>
+            );
+          })()}
 
           {/* 데이터 행 */}
           <div style={{ maxHeight: 600, overflow: 'auto' }}>
-            {rows.map((row, i) => {
+            {rows.map((row) => {
               const isSelected = selected === row.annual;
               const isMilestone = row.annual % 1000 === 0;
               const mColor = medianColor(row.medianRatio);
+              const COL = '80px 90px 72px 82px 62px 88px 62px 64px';
+              const annualLabel = row.annual >= 10000
+                ? `${(row.annual / 10000).toFixed(row.annual % 10000 === 0 ? 0 : 1)}억`
+                : `${row.annual.toLocaleString()}만`;
+              const healthTotal = row.health + row.lts;
+              const taxTotal = row.incomeTax + row.localTax;
 
               return (
-                <div
-                  key={row.annual}
-                  onClick={() => setSelected(isSelected ? null : row.annual)}
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '90px 1fr 1fr 1fr 1fr 80px',
-                    gap: 0, padding: '11px 20px',
+                <div key={row.annual} onClick={() => setSelected(isSelected ? null : row.annual)}
+                  style={{ display: 'grid', gridTemplateColumns: COL, gap: 0, padding: '10px 16px',
                     borderBottom: '1px solid rgba(255,255,255,0.04)',
-                    background: isSelected
-                      ? 'rgba(239,111,91,0.12)'
-                      : isMilestone ? 'rgba(255,255,255,0.03)' : 'transparent',
-                    cursor: 'pointer',
-                    transition: 'background 0.15s',
-                  }}
-                  onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}
+                    background: isSelected ? 'rgba(239,111,91,0.12)' : isMilestone ? 'rgba(255,255,255,0.03)' : 'transparent',
+                    cursor: 'pointer', transition: 'background 0.15s' }}
+                  onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
                   onMouseLeave={e => { if (!isSelected) e.currentTarget.style.background = isMilestone ? 'rgba(255,255,255,0.03)' : 'transparent'; }}
                 >
+                  {/* 연봉 */}
                   <span className="num" style={{ fontSize: 13, color: isMilestone ? 'var(--coral)' : 'var(--text-2)', fontWeight: isMilestone ? 700 : 400 }}>
-                    {row.annual >= 10000
-                      ? `${(row.annual / 10000).toFixed(row.annual % 10000 === 0 ? 0 : 1)}억`
-                      : `${row.annual.toLocaleString()}만`}
+                    {annualLabel}
                   </span>
+                  {/* 월 실수령 */}
                   <span className="num" style={{ textAlign: 'right', fontSize: 14, fontWeight: 700 }}>
-                    {fmtM(row.netMonthly)}<span style={{ fontSize: 11, color: 'var(--text-3)', marginLeft: 2 }}>만</span>
+                    {fmtM(row.netMonthly)}<span style={{ fontSize: 10, color: 'var(--text-3)', marginLeft: 1 }}>만</span>
                   </span>
-                  <span className="num" style={{ textAlign: 'right', fontSize: 13, color: 'var(--text-2)' }}>
-                    {fmtM(row.netMonthly * 12)}<span style={{ fontSize: 11, color: 'var(--text-3)', marginLeft: 2 }}>만</span>
+                  {/* 국민연금 */}
+                  <span className="num" style={{ textAlign: 'right', fontSize: 13, color: 'var(--purple)' }}>
+                    {fmtM(row.pension)}<span style={{ fontSize: 10, color: 'var(--text-3)', marginLeft: 1 }}>만</span>
                   </span>
-                  <span className="num" style={{ textAlign: 'right', fontSize: 13, color: 'var(--text-3)' }}>
-                    -{fmtM(row.totalDeduction)}<span style={{ fontSize: 11, marginLeft: 2 }}>만</span>
+                  {/* 건강+요양 */}
+                  <span className="num" style={{ textAlign: 'right', fontSize: 13, color: 'var(--blue)' }}>
+                    {fmtM(healthTotal)}<span style={{ fontSize: 10, color: 'var(--text-3)', marginLeft: 1 }}>만</span>
                   </span>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6 }}>
-                    <div style={{ width: 40, height: 4, background: 'rgba(255,255,255,0.08)', borderRadius: 999, overflow: 'hidden' }}>
-                      <div style={{ height: '100%', width: `${row.netRate}%`, background: 'var(--green)', borderRadius: 999 }} />
-                    </div>
-                    <span className="num" style={{ fontSize: 12, color: 'var(--text-2)', width: 32, textAlign: 'right' }}>
-                      {row.netRate.toFixed(1)}%
-                    </span>
-                  </div>
+                  {/* 고용보험 */}
+                  <span className="num" style={{ textAlign: 'right', fontSize: 13, color: 'var(--green)' }}>
+                    {fmtM(row.employment)}<span style={{ fontSize: 10, color: 'var(--text-3)', marginLeft: 1 }}>만</span>
+                  </span>
+                  {/* 소득세+지방세 */}
+                  <span className="num" style={{ textAlign: 'right', fontSize: 13, color: 'var(--orange)' }}>
+                    {fmtM(taxTotal)}<span style={{ fontSize: 10, color: 'var(--text-3)', marginLeft: 1 }}>만</span>
+                  </span>
+                  {/* 실수령률 */}
+                  <span className="num" style={{ textAlign: 'right', fontSize: 12, color: 'var(--text-2)' }}>
+                    {row.netRate.toFixed(1)}%
+                  </span>
+                  {/* 중위소득 */}
                   <span className="num" style={{ textAlign: 'right', fontSize: 13, fontWeight: 700, color: mColor }}>
                     {row.medianRatio.toFixed(0)}%
                   </span>
