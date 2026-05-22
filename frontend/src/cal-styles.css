@@ -360,6 +360,7 @@ input[type='range']::-webkit-slider-runnable-track {
   .salary-col-detail { display: none; }
   .salary-topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
 
+  .stock-col-weight { display: none; }
   /* 주식 물타기 히어로 모바일 */
   .stock-hero-main { font-size: 28px; }
   .stock-hero-sub  { font-size: 22px; }
