@@ -110,8 +110,8 @@ export default function App() {
       <Sidebar active={active} onNavigate={handleNavigate} />
       <main className="main scroll">
         {screen}
-        <div style={{ flexShrink: 0, textAlign: 'center', paddingTop: 4 }}>
-          <ins className="kakao_ad_area" style={{ display: 'none' }}
+        <div style={{ flexShrink: 0, textAlign: 'center', paddingTop: 8, paddingBottom: 8 }}>
+          <ins className="kakao_ad_area"
             data-ad-unit="DAN-h3Ve3xuRRLMmQhQr"
             data-ad-width="320"
             data-ad-height="50" />
