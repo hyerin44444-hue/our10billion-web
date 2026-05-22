@@ -160,10 +160,23 @@ export function Sidebar({ active, onNavigate, drawerOpen }) {
       </div>
 
       <div style={{ padding: '12px 10px 16px', textAlign: 'center', flexShrink: 0 }}>
-        <ins className="kakao_ad_area" style={{ display: 'none' }}
-          data-ad-unit="DAN-wuDPkWpzN6Lq4cHe"
-          data-ad-width="320"
-          data-ad-height="100" />
+        {IS_LOCAL ? (
+          <div style={{
+            width: 160, height: 100, margin: '0 auto',
+            background: '#FEE500', border: '1px dashed #c8b800',
+            borderRadius: 4, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+            fontSize: 11, color: '#7a6e00', fontWeight: 600, gap: 4,
+          }}>
+            <span>광고</span>
+            <span style={{ opacity: 0.6 }}>160×100</span>
+          </div>
+        ) : (
+          <ins className="kakao_ad_area" style={{ display: 'none' }}
+            data-ad-unit="DAN-wuDPkWpzN6Lq4cHe"
+            data-ad-width="320"
+            data-ad-height="100" />
+        )}
       </div>
     </aside>
   );
