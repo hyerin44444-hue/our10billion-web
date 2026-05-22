@@ -123,12 +123,37 @@ function PnlBar({ pnlRate }) {
 // ── 메인 ─────────────────────────────────────────────────────
 let nextId = 3;
 export default function StockAverageCalculator() {
-  const [buys, setBuys] = useState([
-    { id: 1, price: 50000, qty: 10 },
-    { id: 2, price: 40000, qty: 15 },
-  ]);
-  const [currentPrice, setCurrentPrice] = useState(38000);
-  const [targetPrice,  setTargetPrice]  = useState(50000);
+  // URL 파라미터 파싱
+  function getInitial() {
+    const p = new URLSearchParams(window.location.search);
+    const rawBuys = p.get('sb');
+    const parsedBuys = rawBuys
+      ? rawBuys.split(',').map((s, i) => {
+          const [price, qty] = s.split(':').map(Number);
+          return { id: i + 1, price: price || 0, qty: qty || 0 };
+        })
+      : [{ id: 1, price: 50000, qty: 10 }, { id: 2, price: 40000, qty: 15 }];
+    return {
+      buys:         parsedBuys,
+      currentPrice: Number(p.get('scp')) || 38000,
+      targetPrice:  Number(p.get('stp')) || 50000,
+    };
+  }
+
+  const init = useMemo(getInitial, []);
+  const [buys, setBuys] = useState(init.buys);
+  const [currentPrice, setCurrentPrice] = useState(init.currentPrice);
+  const [targetPrice,  setTargetPrice]  = useState(init.targetPrice);
+
+  // URL 동기화
+  function syncUrl(newBuys, cp, tp) {
+    const sp = new URLSearchParams(window.location.search);
+    sp.set('screen', 'stock');
+    sp.set('sb', newBuys.map(b => `${b.price}:${b.qty}`).join(','));
+    sp.set('scp', cp);
+    sp.set('stp', tp);
+    window.history.replaceState(null, '', `?${sp}`);
+  }
 
   const result = useMemo(() => calculate(buys, currentPrice), [buys, currentPrice]);
   const targetResult = useMemo(() => {
@@ -140,10 +165,23 @@ export default function StockAverageCalculator() {
   }, [result, targetPrice]);
 
   const addRow = () => {
-    setBuys(prev => [...prev, { id: nextId++, price: 0, qty: 0 }]);
+    const newBuys = [...buys, { id: nextId++, price: 0, qty: 0 }];
+    setBuys(newBuys);
+    syncUrl(newBuys, currentPrice, targetPrice);
   };
-  const updateRow = (id, val) => setBuys(prev => prev.map(b => b.id === id ? val : b));
-  const removeRow = (id) => setBuys(prev => prev.filter(b => b.id !== id));
+  const updateRow = (id, val) => {
+    const newBuys = buys.map(b => b.id === id ? val : b);
+    setBuys(newBuys);
+    syncUrl(newBuys, currentPrice, targetPrice);
+  };
+  const removeRow = (id) => {
+    const newBuys = buys.filter(b => b.id !== id);
+    setBuys(newBuys);
+    syncUrl(newBuys, currentPrice, targetPrice);
+  };
+
+  const handleCurrentPrice = (v) => { setCurrentPrice(v); syncUrl(buys, v, targetPrice); };
+  const handleTargetPrice  = (v) => { setTargetPrice(v);  syncUrl(buys, currentPrice, v); };
 
   const isLoss = result && result.pnl < 0;
 
