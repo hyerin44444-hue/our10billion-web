@@ -307,6 +307,8 @@ export default function StockAverageCalculator() {
         </div>
       </div>
 
+      <AdFitBanner />
+
       {/* 결과 히어로 */}
       {result && (
         <div className="card hero">
