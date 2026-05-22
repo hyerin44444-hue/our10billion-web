@@ -258,8 +258,12 @@ export default function StockAverageCalculator() {
             <div className="k" style={{ marginBottom: 10 }}>현재가</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--surface-2)', borderRadius: 10, padding: '10px 14px' }}>
               <input
-                type="number" min="0" value={currentPrice || ''}
-                onChange={e => handleCurrentPrice(Number(e.target.value))}
+                type="text"
+                value={cpFocused ? cpRaw : (currentPrice ? currentPrice.toLocaleString() : '')}
+                placeholder="0"
+                onFocus={() => { setCpRaw(currentPrice ? String(currentPrice) : ''); setCpFocused(true); }}
+                onChange={e => setCpRaw(e.target.value.replace(/[^0-9]/g, ''))}
+                onBlur={() => { const n = parseInt(cpRaw, 10); if (!isNaN(n)) handleCurrentPrice(n); setCpFocused(false); }}
                 style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
                   color: 'var(--text)', fontFamily: 'inherit', fontSize: 22, fontWeight: 700,
                   borderBottom: '2px solid var(--coral)', paddingBottom: 2 }}
