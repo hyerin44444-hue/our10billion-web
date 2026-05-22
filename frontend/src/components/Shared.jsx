@@ -103,6 +103,7 @@ const MENU_ITEMS = [
   { id: 'stock',       icon: '📉', label: '주식 물타기 계산기',   dot: 'green' },
   { id: 'salary',      icon: '💵', label: '연봉 실수령액 표', dot: 'yellow' },
   { id: 'median',      icon: '📊', label: '기준 중위소득 표',     dot: 'blue' },
+  { id: 'loan',        icon: '🏦', label: '대출 이자 계산기',     dot: 'coral' },
 ];
 
 const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
