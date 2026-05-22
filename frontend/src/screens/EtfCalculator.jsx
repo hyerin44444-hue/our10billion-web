@@ -197,17 +197,17 @@ export default function EtfCalculator() {
         <InputCard
           label="월 적립금" unit="만원"
           min={10} max={1000} step={10} value={monthly}
-          onChange={setMonthly} editable
+          onChange={setMonthly}
         />
         <InputCard
           label="초기 투자금" unit="만원"
           min={0} max={10000} step={100} value={initial}
-          onChange={setInitial} editable
+          onChange={setInitial}
         />
         <InputCard
-          label="기대 수익률" unit="%" display={`${rate.toFixed(1)}`}
+          label="기대 수익률" unit="%"
           min={1} max={20} step={0.5} value={rate}
-          onChange={setRate}
+          onChange={setRate} isRate
         />
         <InputCard
           label="투자 기간" unit="년"
