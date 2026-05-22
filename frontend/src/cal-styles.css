@@ -285,8 +285,8 @@ input[type='range']::-webkit-slider-runnable-track {
 /* ── 기타 ────────────────────────────────────────────────── */
 .divider { height: 1px; background: var(--line); margin: 4px 0; }
 .spacer  { flex: 1; }
-.scroll  { overflow: auto; }
-.scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+.scroll  { overflow-y: auto; overflow-x: hidden; }
+.scroll::-webkit-scrollbar { width: 5px; }
 .scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 3px; }
 .scroll::-webkit-scrollbar-track { background: transparent; }
 
