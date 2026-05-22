@@ -232,8 +232,8 @@ export default function BillionCalculator() {
           <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--purple)' }}>총 {fmt(currentAssets)}만원</span>
         </div>
         <div className="grid-3">
-          <SliderCard label="💵 현금 / 예금" value={cash}      unit="만원" min={0} max={30000} step={500} onChange={update(setCash, 'bc')} />
-          <SliderCard label="📈 주식"        value={stocks}    unit="만원" min={0} max={50000} step={500} onChange={update(setStocks, 'bs')} />
+          <SliderCard label="💵 현금 / 예금" value={cash}      unit="만원" min={0} max={500000} step={1000} onChange={update(setCash, 'bc')} />
+          <SliderCard label="📈 주식"        value={stocks}    unit="만원" min={0} max={500000} step={1000} onChange={update(setStocks, 'bs')} />
           <SliderCard label="주식 기대수익률" value={stockRate} unit="%"    min={0} max={30}    step={0.5} onChange={update(setStockRate, 'br')} isRate />
         </div>
         <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
