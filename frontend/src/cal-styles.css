@@ -109,7 +109,7 @@ body {
 .topbar .left { display: flex; align-items: center; gap: 14px; }
 .topbar .title { font-size: 22px; font-weight: 700; color: var(--text); }
 .topbar .sub   { font-size: 13px; color: var(--text-3); margin-top: 2px; }
-.topbar .right { display: flex; align-items: center; gap: 8px; }
+.topbar .right { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; flex-shrink: 0; }
 
 /* ── 카드 ─────────────────────────────────────────────────── */
 .card {
