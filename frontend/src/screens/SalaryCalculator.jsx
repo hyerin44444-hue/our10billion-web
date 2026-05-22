@@ -289,7 +289,7 @@ export default function SalaryCalculator() {
       <AdFitBanner />
 
       <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-        <div style={{ maxHeight: 'calc(100vh - 200px)', overflow: 'auto' }}>
+        <div>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
               <tr style={{ background: 'var(--surface)', borderBottom: '1px solid var(--line)' }}>
