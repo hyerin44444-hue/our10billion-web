@@ -60,7 +60,17 @@ function fmt(wan) {
 function SliderCard({ label, value, unit, min, max, step, onChange, isRate }) {
   const [raw, setRaw] = useState('');
   const [focused, setFocused] = useState(false);
-  const display = focused ? raw : (isRate ? value.toFixed(1) : value.toLocaleString());
+  const isMoney = unit === '만원';
+  // 포커스 아닐 때 만원 단위는 "50억", "2,000만" 형태로 짧게 표시
+  const display = focused
+    ? raw
+    : isRate
+      ? value.toFixed(1)
+      : isMoney
+        ? fmt(value)
+        : value.toLocaleString();
+  const displayUnit = (!focused && isMoney) ? '' : unit;
+
   return (
     <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
       <div className="k">{label}</div>
@@ -77,9 +87,11 @@ function SliderCard({ label, value, unit, min, max, step, onChange, isRate }) {
           }}
           style={{ flex: 1, minWidth: 0, background: 'none', border: 'none', outline: 'none',
             color: 'var(--text)', fontFamily: 'inherit', fontSize: 18, fontWeight: 700,
-            letterSpacing: '-0.02em', overflow: 'hidden', textOverflow: 'ellipsis' }}
+            letterSpacing: '-0.02em' }}
         />
-        <span style={{ fontSize: 13, color: 'var(--text-3)', flexShrink: 0, whiteSpace: 'nowrap' }}>{unit}</span>
+        {displayUnit && (
+          <span style={{ fontSize: 13, color: 'var(--text-3)', flexShrink: 0, whiteSpace: 'nowrap' }}>{displayUnit}</span>
+        )}
       </div>
       <input type="range" min={min} max={max} step={step} value={Math.min(Math.max(value, min), max)}
         onChange={e => onChange(Number(e.target.value))}
@@ -118,15 +130,15 @@ function GrowthChart({ yearly, target }) {
       {[0.25, 0.5, 0.75].map((p, i) => (
         <line key={i} x1="30" x2={W - 30}
           y1={30 + (H - 60) * p} y2={30 + (H - 60) * p}
-          stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+          stroke="rgba(0,0,0,0.07)" strokeWidth="1" />
       ))}
       {/* 목표 라인 */}
       {targetY > 10 && targetY < H - 30 && (
         <>
           <line x1="30" x2={W - 30} y1={targetY} y2={targetY}
-            stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeDasharray="6 4" />
+            stroke="rgba(0,0,0,0.2)" strokeWidth="1.5" strokeDasharray="6 4" />
           <text x={W - 28} y={targetY - 4} fontSize="10" textAnchor="end"
-            fill="rgba(255,255,255,0.6)" fontFamily="Inter">목표 {fmt(target)}원</text>
+            fill="rgba(0,0,0,0.5)" fontFamily="Inter">목표 {fmt(target)}원</text>
         </>
       )}
       <path d={area} fill="url(#billion-g)" />
@@ -135,7 +147,7 @@ function GrowthChart({ yearly, target }) {
         fill="#ef6f5b" stroke="#fff" strokeWidth="2.5" />
       {labelIdxs.map(i => (
         <text key={i} x={x(i)} y={H - 10} fontSize="11" textAnchor="middle"
-          fill="rgba(255,255,255,0.4)" fontFamily="Inter">{yearly[i]?.year ?? 0}년</text>
+          fill="rgba(0,0,0,0.4)" fontFamily="Inter">{yearly[i]?.year ?? 0}년</text>
       ))}
     </svg>
   );
@@ -262,7 +274,7 @@ export default function BillionCalculator() {
             {fmt(currentAssets)}원 <span style={{ color: 'var(--text-3)' }}>/ {fmt(target)}원</span>
           </div>
         </div>
-        <div style={{ height: 12, background: 'rgba(255,255,255,0.08)', borderRadius: 999, overflow: 'hidden' }}>
+        <div style={{ height: 12, background: 'rgba(0,0,0,0.06)', borderRadius: 999, overflow: 'hidden' }}>
           <div style={{
             height: '100%', borderRadius: 999,
             width: `${progress}%`,
@@ -375,7 +387,7 @@ export default function BillionCalculator() {
                 </div>
                 <div style={{
                   height: 6, width: 100, borderRadius: 999,
-                  background: 'rgba(255,255,255,0.08)', overflow: 'hidden',
+                  background: 'rgba(0,0,0,0.06)', overflow: 'hidden',
                 }}>
                   <div style={{
                     height: '100%', borderRadius: 999,
