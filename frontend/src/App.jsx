@@ -32,6 +32,7 @@ export default function App() {
     retirement: <RetirementCalculator />,
     billion:    <BillionCalculator />,
     stock:      <StockAverageCalculator />,
+    salary:     <SalaryCalculator />,
   }[active];
 
   return (
