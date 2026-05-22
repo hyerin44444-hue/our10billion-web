@@ -284,8 +284,12 @@ export default function StockAverageCalculator() {
             <div className="k" style={{ marginBottom: 10 }}>목표가</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--surface-2)', borderRadius: 10, padding: '10px 14px' }}>
               <input
-                type="number" min="0" value={targetPrice || ''}
-                onChange={e => handleTargetPrice(Number(e.target.value))}
+                type="text"
+                value={tpFocused ? tpRaw : (targetPrice ? targetPrice.toLocaleString() : '')}
+                placeholder="0"
+                onFocus={() => { setTpRaw(targetPrice ? String(targetPrice) : ''); setTpFocused(true); }}
+                onChange={e => setTpRaw(e.target.value.replace(/[^0-9]/g, ''))}
+                onBlur={() => { const n = parseInt(tpRaw, 10); if (!isNaN(n)) handleTargetPrice(n); setTpFocused(false); }}
                 style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
                   color: 'var(--text)', fontFamily: 'inherit', fontSize: 22, fontWeight: 700,
                   borderBottom: '2px solid var(--purple)', paddingBottom: 2 }}
