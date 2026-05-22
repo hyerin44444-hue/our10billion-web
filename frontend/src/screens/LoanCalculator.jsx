@@ -240,9 +240,9 @@ export default function LoanCalculator() {
 
       {/* 입력 슬라이더 */}
       <div className="grid-3">
-        <SliderCard label="대출 원금" value={principal} unit="만원" min={500} max={200000} step={500} onChange={setPrincipal} />
-        <SliderCard label="연 이자율" value={rate} unit="%" min={0.1} max={20} step={0.1} onChange={setRate} isRate />
-        <SliderCard label="대출 기간" value={years} unit="년" min={1} max={40} step={1} onChange={setYears} />
+        <SliderCard label="대출 원금" value={principal} unit="만원" min={500} max={200000} step={500} onChange={update(setPrincipal, 'lp')} />
+        <SliderCard label="연 이자율" value={rate} unit="%" min={0.1} max={20} step={0.1} onChange={update(setRate, 'lr')} isRate />
+        <SliderCard label="대출 기간" value={years} unit="년" min={1} max={40} step={1} onChange={update(setYears, 'ly')} />
       </div>
 
       <AdFitBanner />
