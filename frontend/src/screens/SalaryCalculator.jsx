@@ -258,7 +258,6 @@ const MONTHLY = [
 ];
 
 const HEADERS = ['연봉', '실수령액', '공제액계', '국민연금', '건강보험', '장기요양', '고용보험', '소득세', '지방소득세'];
-const MONTHLY_HEADERS = ['월급', '실수령액', '공제액계', '국민연금', '건강보험', '장기요양', '고용보험', '소득세', '지방소득세'];
 
 const COL_COLORS = [null, 'var(--coral)', 'var(--text-2)', 'var(--purple)', 'var(--blue)', 'var(--blue)', 'var(--green)', 'var(--orange)', 'var(--orange)'];
 
