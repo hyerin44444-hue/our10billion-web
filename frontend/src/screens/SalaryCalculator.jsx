@@ -346,7 +346,7 @@ export default function SalaryCalculator() {
                         </td>
                       </tr>
                     )}
-                  </>
+                  </React.Fragment>
                 );
               })}
             </tbody>
