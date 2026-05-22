@@ -80,7 +80,6 @@ export default function MedianIncomeTable() {
           gap: 0,
         }}>
           <span>비율</span>
-          <span>해당 복지사업</span>
           {[1,2,3,4,5,6].map(n => (
             <span key={n} style={{ textAlign: 'right' }}>{n}인 가구</span>
           ))}
