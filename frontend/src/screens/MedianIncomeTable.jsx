@@ -113,11 +113,11 @@ export default function MedianIncomeTable() {
               const won = Math.round(BASE[n] * row.pct / 100);
               return (
                 <span key={n} className="num" style={{
-                  textAlign: 'right', fontSize: 13,
+                  textAlign: 'right', fontSize: 12,
                   fontWeight: row.highlight ? 700 : 400,
                   color: row.highlight ? 'var(--purple)' : 'var(--text)',
                 }}>
-                  {fmt(won)}<span style={{ fontSize: 10, color: 'var(--text-3)', marginLeft: 1 }}>원</span>
+                  {won.toLocaleString()}
                 </span>
               );
             })}
