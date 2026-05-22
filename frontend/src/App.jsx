@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import './cal-styles.css';
 import { Sidebar } from './components/Shared';
-import NetWorthCalculator    from './screens/NetWorthCalculator';
-import EtfCalculator         from './screens/EtfCalculator';
-import RetirementCalculator  from './screens/RetirementCalculator';
-import BillionCalculator     from './screens/BillionCalculator';
+import NetWorthCalculator       from './screens/NetWorthCalculator';
+import EtfCalculator            from './screens/EtfCalculator';
+import RetirementCalculator     from './screens/RetirementCalculator';
+import BillionCalculator        from './screens/BillionCalculator';
+import StockAverageCalculator   from './screens/StockAverageCalculator';
 
-const VALID_SCREENS = ['networth', 'etf', 'retirement', 'billion'];
+const VALID_SCREENS = ['networth', 'etf', 'retirement', 'billion', 'stock'];
 
 function getInitialScreen() {
   const sp = new URLSearchParams(window.location.search);
@@ -29,6 +30,7 @@ export default function App() {
     etf:        <EtfCalculator />,
     retirement: <RetirementCalculator />,
     billion:    <BillionCalculator />,
+    stock:      <StockAverageCalculator />,
   }[active];
 
   return (
