@@ -151,11 +151,31 @@ function LoanChart({ schedule, months }) {
   );
 }
 
+function getInitial() {
+  const p = new URLSearchParams(window.location.search);
+  return {
+    principal: Number(p.get('lp'))  || 30000,
+    rate:      Number(p.get('lr'))  || 4.5,
+    years:     Number(p.get('ly'))  || 20,
+    method:    p.get('lm') || 'equal',
+  };
+}
+
 export default function LoanCalculator() {
-  const [principal, setPrincipal] = useState(30000);  // 만원
-  const [rate,      setRate]      = useState(4.5);     // %
-  const [years,     setYears]     = useState(20);      // 년
-  const [method,    setMethod]    = useState('equal');
+  const init = useMemo(getInitial, []);
+  const [principal, setPrincipal] = useState(init.principal);
+  const [rate,      setRate]      = useState(init.rate);
+  const [years,     setYears]     = useState(init.years);
+  const [method,    setMethod]    = useState(init.method);
+
+  const sync = (key, val) => {
+    const sp = new URLSearchParams(window.location.search);
+    sp.set('screen', 'loan');
+    sp.set(key, val);
+    window.history.replaceState(null, '', `?${sp}`);
+  };
+
+  const update = (setter, key) => (val) => { setter(val); sync(key, val); };
 
   const months = years * 12;
 
