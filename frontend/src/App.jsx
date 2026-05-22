@@ -83,6 +83,7 @@ function getInitialScreen() {
 export default function App() {
   const [active, setActive] = useState(() => {
     const s = getInitialScreen();
+    updateMeta(s);
     trackPageView(s);
     return s;
   });
@@ -92,6 +93,7 @@ export default function App() {
     const sp = new URLSearchParams(window.location.search);
     sp.set('screen', id);
     window.history.pushState(null, '', `?${sp}`);
+    updateMeta(id);
     trackPageView(id);
   };
 
