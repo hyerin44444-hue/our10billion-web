@@ -368,6 +368,13 @@ input[type='range']::-webkit-slider-runnable-track {
   .salary-col-detail { display: none; }
   .salary-topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
 
+  /* 10억 히어로 모바일 */
+  .billion-years   { font-size: 36px; }
+  .billion-months  { font-size: 28px; }
+  .billion-unit    { font-size: 18px; }
+  .billion-unit-sm { font-size: 15px; }
+  .billion-circle-wrap { display: none; }
+
   .stock-col-weight { display: none; }
   .stock-detail-grid { grid-template-columns: 40px 1fr 1fr 1fr 1fr; }
   /* 주식 물타기 히어로 모바일 */
