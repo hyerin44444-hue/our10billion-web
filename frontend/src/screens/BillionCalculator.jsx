@@ -219,9 +219,9 @@ export default function BillionCalculator() {
       {/* 입력 슬라이더 */}
       <div className="grid-4">
         <SliderCard label="현재 나이"    value={currentAge}    unit="세"   min={20}  max={60}    step={1}   onChange={update(setCurrentAge, 'bag')} />
-        <SliderCard label="현재 자산"    value={currentAssets} unit="만원" min={0}   max={50000} step={500} onChange={update(setCurrentAssets, 'ba')} display={fmt(currentAssets)} />
+        <SliderCard label="현재 자산"    value={currentAssets} unit="만원" min={0}   max={50000} step={500} onChange={update(setCurrentAssets, 'ba')} />
         <SliderCard label="월 저축액"    value={monthly}       unit="만원" min={10}  max={1000}  step={10}  onChange={update(setMonthly, 'bm')} />
-        <SliderCard label="기대 수익률"  value={rate}          unit="%"    min={0}   max={20}    step={0.5} onChange={update(setRate, 'br')} display={rate.toFixed(1)} />
+        <SliderCard label="기대 수익률"  value={rate}          unit="%"    min={0}   max={20}    step={0.5} onChange={update(setRate, 'br')} isRate />
       </div>
 
       {/* 진행률 바 */}
