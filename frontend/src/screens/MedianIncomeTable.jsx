@@ -71,7 +71,7 @@ export default function MedianIncomeTable() {
         {/* 헤더 */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '70px 1fr 1fr 1fr 1fr 1fr 1fr',
+          gridTemplateColumns: '52px repeat(6, 1fr)',
           padding: '12px 16px',
           background: 'var(--surface-2)',
           borderBottom: '1px solid var(--line)',
@@ -91,7 +91,7 @@ export default function MedianIncomeTable() {
             key={row.pct}
             style={{
               display: 'grid',
-              gridTemplateColumns: '70px 1fr 1fr 1fr 1fr 1fr 1fr',
+              gridTemplateColumns: '52px repeat(6, 1fr)',
               padding: '11px 16px',
               borderBottom: '1px solid var(--line)',
               background: row.highlight ? 'rgba(108,63,197,0.05)' : 'transparent',
