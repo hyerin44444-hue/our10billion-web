@@ -266,7 +266,7 @@ export default function StockAverageCalculator() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--surface-2)', borderRadius: 10, padding: '10px 14px' }}>
               <input
                 type="number" min="0" value={targetPrice || ''}
-                onChange={e => setTargetPrice(Number(e.target.value))}
+                onChange={e => handleTargetPrice(Number(e.target.value))}
                 style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
                   color: 'var(--text)', fontFamily: 'inherit', fontSize: 22, fontWeight: 700,
                   borderBottom: '2px solid var(--purple)', paddingBottom: 2 }}
