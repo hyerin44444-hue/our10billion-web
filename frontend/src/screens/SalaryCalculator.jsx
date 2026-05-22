@@ -285,8 +285,8 @@ export default function SalaryCalculator() {
         </div>
       </div>
 
-      <div className="card" style={{ padding: 0, overflow: 'hidden', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
-        <div style={{ overflow: 'auto', flex: 1, minHeight: 0 }}>
+      <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+        <div style={{ maxHeight: 'calc(100vh - 200px)', overflow: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 700 }}>
             <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
               <tr style={{ background: 'var(--surface)', borderBottom: '1px solid var(--line)' }}>
