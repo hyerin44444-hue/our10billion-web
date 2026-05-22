@@ -299,6 +299,13 @@ input[type='range']::-webkit-slider-runnable-track {
 }
 
 /* ── 주식 물타기 히어로 ──────────────────────────────────────── */
+/* ── 10억까지 히어로 ─────────────────────────────────────────── */
+.billion-years   { font-size: 56px; line-height: 1.05; }
+.billion-months  { font-size: 40px; line-height: 1.05; }
+.billion-unit    { font-size: 24px; color: var(--on-light-2); font-weight: 600; }
+.billion-unit-sm { font-size: 20px; color: var(--on-light-2); font-weight: 600; }
+.billion-circle-wrap { text-align: center; flex-shrink: 0; }
+
 .stock-hero-row { display: flex; justify-content: space-between; align-items: flex-start; }
 .stock-detail-grid { grid-template-columns: 40px 1fr 1fr 1fr 1fr 1fr; }
 .stock-hero-main { font-size: 52px; line-height: 1.1; margin-top: 8px; }
