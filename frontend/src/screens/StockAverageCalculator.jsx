@@ -363,7 +363,7 @@ export default function StockAverageCalculator() {
               fontSize: 11, color: 'var(--text-3)', padding: '4px 0 8px', borderBottom: '1px solid var(--line)' }}>
               <span></span>
               <span>매수가</span><span>수량</span><span>매수금액</span>
-              <span>비중</span><span>현재 손익</span>
+              <span className="stock-col-weight">비중</span><span>현재 손익</span>
             </div>
             {buys.filter(b => b.price > 0 && b.qty > 0).map((b, i) => {
               const amount  = b.price * b.qty;
