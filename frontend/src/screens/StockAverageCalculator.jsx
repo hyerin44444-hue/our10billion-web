@@ -155,6 +155,11 @@ export default function StockAverageCalculator() {
   const [currentPrice, setCurrentPrice] = useState(init.currentPrice);
   const [targetPrice,  setTargetPrice]  = useState(init.targetPrice);
 
+  const [cpRaw, setCpRaw] = useState('');
+  const [cpFocused, setCpFocused] = useState(false);
+  const [tpRaw, setTpRaw] = useState('');
+  const [tpFocused, setTpFocused] = useState(false);
+
   // URL 동기화
   function syncUrl(newBuys, cp, tp) {
     const sp = new URLSearchParams(window.location.search);
