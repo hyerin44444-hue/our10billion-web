@@ -45,11 +45,20 @@ function fmtShort(wan) {
 function InputCard({ label, value, unit, min, max, step, onChange, isRate }) {
   const [raw, setRaw] = useState('');
   const [focused, setFocused] = useState(false);
-  const display = focused ? raw : (isRate ? value.toFixed(1) : value.toLocaleString());
+  const isMoney = unit === '만원';
+  const display = focused
+    ? raw
+    : isRate
+      ? value.toFixed(1)
+      : isMoney
+        ? fmtShort(value)
+        : value.toLocaleString();
+  const displayUnit = (!focused && isMoney) ? '' : unit;
+
   return (
     <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
       <div className="k">{label}</div>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, borderBottom: '1px solid var(--coral)', paddingBottom: 4 }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, borderBottom: '1px solid var(--coral)', paddingBottom: 4 }}>
         <input
           type="text"
           value={display}
@@ -60,10 +69,10 @@ function InputCard({ label, value, unit, min, max, step, onChange, isRate }) {
             if (!isNaN(n)) onChange(Math.min(Math.max(n, min), max));
             setFocused(false);
           }}
-          style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
+          style={{ flex: 1, minWidth: 0, background: 'none', border: 'none', outline: 'none',
             color: 'var(--text)', fontFamily: 'inherit', fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em' }}
         />
-        <span style={{ fontSize: 13, color: 'var(--text-3)', flexShrink: 0 }}>{unit}</span>
+        {displayUnit && <span style={{ fontSize: 13, color: 'var(--text-3)', flexShrink: 0, whiteSpace: 'nowrap' }}>{displayUnit}</span>}
       </div>
       <input type="range" min={min} max={max} step={step} value={Math.min(Math.max(value, min), max)}
         onChange={e => onChange(isRate ? parseFloat(e.target.value) : Number(e.target.value))}
