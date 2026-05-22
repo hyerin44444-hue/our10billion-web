@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './cal-styles.css';
 import { Sidebar } from './components/Shared';
 import NetWorthCalculator       from './screens/NetWorthCalculator';
