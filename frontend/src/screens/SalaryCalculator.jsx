@@ -294,7 +294,7 @@ export default function SalaryCalculator() {
               </tr>
             </thead>
             <tbody>
-              {data.map((row, i) => (
+              {ANNUAL.map((row, i) => (
                 <tr
                   key={i}
                   style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', cursor: 'default' }}
