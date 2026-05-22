@@ -280,7 +280,7 @@ export default function SalaryCalculator() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
               <tr style={{ background: 'var(--surface)', borderBottom: '1px solid var(--line)' }}>
-                {headers.map((h, i) => (
+                {HEADERS.map((h, i) => (
                   <th key={h} className={i >= 3 ? 'salary-col-detail' : ''} style={{
                     padding: '11px 14px',
                     textAlign: i === 0 ? 'left' : 'right',
