@@ -30,80 +30,77 @@ function calculate(buys, currentPrice) {
 }
 
 // ── 매수 행 입력 ─────────────────────────────────────────────
+const COLORS = ['var(--coral)', 'var(--orange)', 'var(--purple)', 'var(--blue)', 'var(--green)'];
+
+function InputBox({ label, value, focused, onFocus, onChange, onBlur, unit }) {
+  return (
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <div style={{ fontSize: 11, color: 'var(--text-3)', marginBottom: 4 }}>{label}</div>
+      <div style={{ display: 'flex', alignItems: 'center', background: 'var(--surface-2)',
+        borderRadius: 10, padding: '10px 12px', gap: 6 }}>
+        <input
+          type="text" inputMode="numeric"
+          value={value} placeholder="0"
+          onFocus={onFocus} onChange={onChange} onBlur={onBlur}
+          style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
+            color: 'var(--text)', fontFamily: 'inherit', fontSize: 16, fontWeight: 600,
+            minWidth: 0 }}
+        />
+        <span style={{ fontSize: 13, color: 'var(--text-3)', flexShrink: 0 }}>{unit}</span>
+      </div>
+    </div>
+  );
+}
+
 function BuyRow({ index, buy, onChange, onRemove, canRemove }) {
   const amount = buy.price * buy.qty;
   const [priceRaw, setPriceRaw] = useState('');
   const [priceFocused, setPriceFocused] = useState(false);
   const [qtyRaw, setQtyRaw] = useState('');
   const [qtyFocused, setQtyFocused] = useState(false);
+
   return (
-    <div style={{
-      display: 'grid', gridTemplateColumns: '28px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 32px',
-      gap: 8, alignItems: 'center', padding: '10px 0',
-      borderBottom: '1px solid var(--line)',
-    }}>
-      <div style={{
-        width: 28, height: 28, borderRadius: '50%',
-        background: ['var(--coral)', 'var(--orange)', 'var(--purple)', 'var(--blue)', 'var(--green)'][index % 5],
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: 12, fontWeight: 700, color: '#fff', flexShrink: 0,
-      }}>{index + 1}</div>
+    <div style={{ padding: '12px 0', borderBottom: '1px solid var(--line)' }}>
+      {/* 첫째 줄: 번호 + 입력 2개 + 삭제 */}
+      <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
+        <div style={{
+          width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+          background: COLORS[index % 5], alignSelf: 'flex-end', marginBottom: 2,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 12, fontWeight: 700, color: '#fff',
+        }}>{index + 1}</div>
 
-      {/* 매수가 */}
-      <div>
-        <div style={{ fontSize: 11, color: 'var(--text-3)', marginBottom: 4 }}>매수가</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'var(--surface-2)', borderRadius: 8, padding: '6px 10px' }}>
-          <input
-            type="text"
-            value={priceFocused ? priceRaw : (buy.price ? buy.price.toLocaleString() : '')}
-            placeholder="0"
-            onFocus={() => { setPriceRaw(buy.price ? String(buy.price) : ''); setPriceFocused(true); }}
-            onChange={e => setPriceRaw(e.target.value.replace(/[^0-9]/g, ''))}
-            onBlur={() => { const n = parseInt(priceRaw, 10); onChange({ ...buy, price: isNaN(n) ? 0 : n }); setPriceFocused(false); }}
-            style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
-              color: 'var(--text)', fontFamily: 'inherit', fontSize: 14, fontWeight: 600, minWidth: 0 }}
-          />
-          <span style={{ fontSize: 12, color: 'var(--text-3)', flexShrink: 0 }}>원</span>
-        </div>
-      </div>
+        <InputBox
+          label="매수가" unit="원"
+          value={priceFocused ? priceRaw : (buy.price ? buy.price.toLocaleString() : '')}
+          onFocus={() => { setPriceRaw(buy.price ? String(buy.price) : ''); setPriceFocused(true); }}
+          onChange={e => setPriceRaw(e.target.value.replace(/[^0-9]/g, ''))}
+          onBlur={() => { const n = parseInt(priceRaw, 10); onChange({ ...buy, price: isNaN(n) ? 0 : n }); setPriceFocused(false); }}
+        />
+        <InputBox
+          label="수량" unit="주"
+          value={qtyFocused ? qtyRaw : (buy.qty ? buy.qty.toLocaleString() : '')}
+          onFocus={() => { setQtyRaw(buy.qty ? String(buy.qty) : ''); setQtyFocused(true); }}
+          onChange={e => setQtyRaw(e.target.value.replace(/[^0-9]/g, ''))}
+          onBlur={() => { const n = parseInt(qtyRaw, 10); onChange({ ...buy, qty: isNaN(n) ? 0 : n }); setQtyFocused(false); }}
+        />
 
-      {/* 수량 */}
-      <div>
-        <div style={{ fontSize: 11, color: 'var(--text-3)', marginBottom: 4 }}>수량</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'var(--surface-2)', borderRadius: 8, padding: '6px 10px' }}>
-          <input
-            type="text"
-            value={qtyFocused ? qtyRaw : (buy.qty ? buy.qty.toLocaleString() : '')}
-            placeholder="0"
-            onFocus={() => { setQtyRaw(buy.qty ? String(buy.qty) : ''); setQtyFocused(true); }}
-            onChange={e => setQtyRaw(e.target.value.replace(/[^0-9]/g, ''))}
-            onBlur={() => { const n = parseInt(qtyRaw, 10); onChange({ ...buy, qty: isNaN(n) ? 0 : n }); setQtyFocused(false); }}
-            style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
-              color: 'var(--text)', fontFamily: 'inherit', fontSize: 14, fontWeight: 600, minWidth: 0 }}
-          />
-          <span style={{ fontSize: 12, color: 'var(--text-3)', flexShrink: 0 }}>주</span>
-        </div>
-      </div>
-
-      {/* 금액 */}
-      <div>
-        <div style={{ fontSize: 11, color: 'var(--text-3)', marginBottom: 4 }}>매수 금액</div>
-        <div style={{ background: 'var(--surface-2)', borderRadius: 8, padding: '6px 10px',
-          fontSize: 14, fontWeight: 600, color: amount > 0 ? 'var(--text)' : 'var(--text-3)',
-          height: 34, display: 'flex', alignItems: 'center' }}>
-          {amount > 0 ? fmtWon(amount) : '—'}
-        </div>
-      </div>
-
-      {/* 삭제 */}
-      <button onClick={onRemove} disabled={!canRemove}
-        style={{ width: 32, height: 32, borderRadius: '50%', border: 'none',
-          background: canRemove ? 'rgba(244,168,203,0.2)' : 'transparent',
+        <button onClick={onRemove} disabled={!canRemove} style={{
+          width: 36, height: 36, borderRadius: '50%', border: 'none', flexShrink: 0,
+          alignSelf: 'flex-end',
+          background: canRemove ? 'rgba(233,30,140,0.1)' : 'transparent',
           color: canRemove ? 'var(--pink)' : 'var(--text-3)',
-          cursor: canRemove ? 'pointer' : 'default', fontSize: 16,
-          display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        ×
-      </button>
+          cursor: canRemove ? 'pointer' : 'default', fontSize: 18,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>×</button>
+      </div>
+
+      {/* 둘째 줄: 매수금액 */}
+      {amount > 0 && (
+        <div style={{ marginTop: 6, paddingLeft: 36, fontSize: 13, color: 'var(--text-3)' }}>
+          매수금액 <span className="num" style={{ color: 'var(--text-2)', fontWeight: 600 }}>{fmtWon(amount)}</span>
+        </div>
+      )}
     </div>
   );
 }
