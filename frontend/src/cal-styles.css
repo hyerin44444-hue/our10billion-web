@@ -334,6 +334,7 @@ input[type='range']::-webkit-slider-runnable-track {
 .median-table-mobile   { display: none; }
 .median-base-cards     { display: block; }
 
+.salary-thead { position: sticky; top: 0; z-index: 2; }
 .salary-tr { transition: background 0.1s; }
 .salary-detail-row { display: none; }
 .salary-tr:hover { background: var(--surface-2) !important; }
