@@ -82,6 +82,7 @@ function getInitialScreen() {
 
 export default function App() {
   const [active, setActive] = useState(getInitialScreen);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     updateMeta(active);
@@ -90,6 +91,7 @@ export default function App() {
 
   const handleNavigate = (id) => {
     setActive(id);
+    setDrawerOpen(false);
     window.history.pushState(null, '', `?screen=${id}`);
   };
 
@@ -105,7 +107,18 @@ export default function App() {
 
   return (
     <div className="app-frame">
-      <Sidebar active={active} onNavigate={handleNavigate} />
+      {/* 모바일 상단 바 */}
+      <div className="mobile-topbar">
+        <button className="hamburger" onClick={() => setDrawerOpen(o => !o)}>
+          <span /><span /><span />
+        </button>
+        <img src="/lockup-horizontal-kr.svg" alt="모았다" style={{ height: 26, width: 'auto' }} />
+      </div>
+
+      {/* 백드롭 */}
+      {drawerOpen && <div className="drawer-backdrop" onClick={() => setDrawerOpen(false)} />}
+
+      <Sidebar active={active} onNavigate={handleNavigate} drawerOpen={drawerOpen} />
       <main className="main scroll">
         {screen}
         <div style={{ flexShrink: 0, textAlign: 'center', paddingTop: 8, paddingBottom: 8 }}>
