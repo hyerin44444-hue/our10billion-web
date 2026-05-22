@@ -159,7 +159,7 @@ export function Sidebar({ active, onNavigate, drawerOpen }) {
         ))}
       </div>
 
-      <div style={{ padding: '12px 10px 16px', textAlign: 'center', flexShrink: 0 }}>
+      <div className="sb-ad" style={{ padding: '12px 10px 16px', textAlign: 'center', flexShrink: 0 }}>
         {IS_LOCAL ? (
           <div style={{
             width: 160, height: 100, margin: '0 auto',
