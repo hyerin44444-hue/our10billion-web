@@ -322,6 +322,8 @@ input[type='range']::-webkit-slider-runnable-track {
 
 @media (max-width: 768px) {
   .app-frame { grid-template-columns: 1fr; }
+  .stock-layout { grid-template-columns: 1fr !important; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
 
   .mobile-topbar {
     display: flex; align-items: center; gap: 12px;
