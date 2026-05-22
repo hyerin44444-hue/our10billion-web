@@ -6,8 +6,9 @@ import EtfCalculator            from './screens/EtfCalculator';
 import RetirementCalculator     from './screens/RetirementCalculator';
 import BillionCalculator        from './screens/BillionCalculator';
 import StockAverageCalculator   from './screens/StockAverageCalculator';
+import SalaryCalculator         from './screens/SalaryCalculator';
 
-const VALID_SCREENS = ['networth', 'etf', 'retirement', 'billion', 'stock'];
+const VALID_SCREENS = ['networth', 'etf', 'retirement', 'billion', 'stock', 'salary'];
 
 function getInitialScreen() {
   const sp = new URLSearchParams(window.location.search);
