@@ -62,11 +62,11 @@ export function CopyLinkBtn() {
       padding: '6px 12px', borderRadius: 999,
       background: copied ? 'rgba(93,187,122,0.2)' : 'rgba(255,255,255,0.10)',
       color: copied ? 'var(--green)' : 'var(--text)',
-      border: '1px solid ' + (copied ? 'var(--green)' : 'rgba(255,255,255,0.15)'),
-      cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 600,
-      transition: 'all 0.2s',
+      border: '1px solid ' + (copied ? 'var(--green)' : 'var(--line-2)'),
+      cursor: 'pointer', fontFamily: 'inherit', fontSize: 12, fontWeight: 600,
+      transition: 'all 0.2s', whiteSpace: 'nowrap',
     }}>
-      {copied ? '✓ 복사됨' : '🔗 링크 복사'}
+      {copied ? '✓ 복사' : '🔗 링크복사'}
     </button>
   );
 }
