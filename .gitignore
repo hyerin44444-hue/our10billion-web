@@ -1,21 +1,22 @@
-# Python
-backend/venv/
-backend/__pycache__/
-backend/app/__pycache__/
-backend/app/**/__pycache__/
-backend/.env
+# Python (삭제된 백엔드)
+app/
+requirements.txt
+start.sh
+backend/
+venv/
+.venv/
 __pycache__/
 *.py[cod]
 *.pyc
 *.pyo
 .env
-venv/
-.venv/
 *.egg-info/
-build/
 .pytest_cache/
 
 # Node
+node_modules/
+package-lock.json
+package.json
 frontend/node_modules/
 frontend/dist/
 dist/
@@ -23,4 +24,3 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
-backend/
