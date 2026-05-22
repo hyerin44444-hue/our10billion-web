@@ -328,7 +328,7 @@ export default function BillionCalculator() {
             </div>
 
             {/* 카운트다운 원형 */}
-            <div style={{ textAlign: 'center' }}>
+            <div className="billion-circle-wrap">
               <div style={{
                 width: 110, height: 110, borderRadius: '50%',
                 background: 'rgba(0,0,0,0.12)',
