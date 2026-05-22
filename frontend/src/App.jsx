@@ -119,7 +119,7 @@ export default function App() {
       {drawerOpen && <div className="drawer-backdrop" onClick={() => setDrawerOpen(false)} />}
 
       <Sidebar active={active} onNavigate={handleNavigate} drawerOpen={drawerOpen} />
-      <main className="main scroll">
+      <main className={`main scroll${active === 'median' || active === 'salary' ? ' main-flow' : ''}`}>
         {screen}
         <div style={{ flexShrink: 0, textAlign: 'center', paddingTop: 8, paddingBottom: 8 }}>
           <ins className="kakao_ad_area"
