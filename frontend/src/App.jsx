@@ -11,6 +11,25 @@ import MedianIncomeTable        from './screens/MedianIncomeTable';
 
 const VALID_SCREENS = ['networth', 'etf', 'retirement', 'billion', 'stock', 'salary', 'median'];
 
+const SCREEN_TITLES = {
+  networth:   '순자산 계산기',
+  etf:        'ETF 적립식 계산기',
+  retirement: '은퇴 가능 계산기',
+  billion:    '10억까지 얼마나',
+  stock:      '주식 물타기 계산기',
+  salary:     '연봉 실수령액 계산기',
+  median:     '기준 중위소득 표',
+};
+
+function trackPageView(screenId) {
+  if (typeof window.gtag !== 'function') return;
+  window.gtag('event', 'page_view', {
+    page_title:    SCREEN_TITLES[screenId] ?? screenId,
+    page_location: window.location.href,
+    page_path:     `/?screen=${screenId}`,
+  });
+}
+
 function getInitialScreen() {
   const sp = new URLSearchParams(window.location.search);
   const s = sp.get('screen');
@@ -18,13 +37,18 @@ function getInitialScreen() {
 }
 
 export default function App() {
-  const [active, setActive] = useState(getInitialScreen);
+  const [active, setActive] = useState(() => {
+    const s = getInitialScreen();
+    trackPageView(s);
+    return s;
+  });
 
   const handleNavigate = (id) => {
     setActive(id);
     const sp = new URLSearchParams(window.location.search);
     sp.set('screen', id);
     window.history.pushState(null, '', `?${sp}`);
+    trackPageView(id);
   };
 
   const screen = {
