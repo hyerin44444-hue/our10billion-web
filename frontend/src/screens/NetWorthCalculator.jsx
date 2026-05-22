@@ -18,6 +18,8 @@ function fmt(wan) {
 
 // ── 입력 행 ───────────────────────────────────────────────────
 function AmountRow({ label, value, onChange, dotColor, placeholder = '0' }) {
+  const [raw, setRaw] = useState('');
+  const [focused, setFocused] = useState(false);
   return (
     <div style={{
       display: 'flex', alignItems: 'center', gap: 12,
@@ -26,15 +28,17 @@ function AmountRow({ label, value, onChange, dotColor, placeholder = '0' }) {
       <span style={{ width: 10, height: 10, borderRadius: '50%', background: dotColor, flexShrink: 0 }} />
       <span style={{ flex: 1, fontSize: 14 }}>{label}</span>
       <input
-        type="number" min="0" placeholder={placeholder} value={value || ''}
-        onChange={e => onChange(e.target.value === '' ? 0 : Number(e.target.value))}
+        type="text"
+        placeholder={placeholder}
+        value={focused ? raw : (value ? value.toLocaleString() : '')}
+        onFocus={e => { setRaw(value ? String(value) : ''); setFocused(true); e.target.style.borderColor = 'var(--coral)'; }}
+        onChange={e => setRaw(e.target.value.replace(/[^0-9]/g, ''))}
+        onBlur={e => { const n = parseInt(raw, 10); onChange(isNaN(n) ? 0 : n); setFocused(false); e.target.style.borderColor = 'var(--line)'; }}
         style={{
           width: 130, background: 'var(--surface-2)', border: '1px solid var(--line)',
           borderRadius: 8, padding: '8px 12px', color: 'var(--text)', fontFamily: 'inherit',
           fontSize: 14, textAlign: 'right', outline: 'none',
         }}
-        onFocus={e => e.target.style.borderColor = 'var(--coral)'}
-        onBlur={e => e.target.style.borderColor = 'var(--line)'}
       />
       <span style={{ fontSize: 12, color: 'var(--text-3)', width: 24, flexShrink: 0 }}>만원</span>
     </div>
