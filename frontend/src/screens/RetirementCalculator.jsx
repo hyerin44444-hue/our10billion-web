@@ -219,7 +219,7 @@ export default function RetirementCalculator() {
 
       {/* 입력 — 행 2 */}
       <div className="grid-3">
-        <SliderCard label="기대 수익률"      value={rate}     unit="%"  min={1}  max={15}  step={0.5} onChange={setRate} display={rate.toFixed(1)} />
+        <SliderCard label="기대 수익률"      value={rate}     unit="%"  min={1}  max={15}  step={0.5} onChange={setRate} isRate />
         <SliderCard label="은퇴 후 월 생활비" value={monthlyExp} unit="만원" min={100} max={1000} step={50} onChange={setMonthlyExp} />
         <SliderCard label="기대 수명"        value={lifeExp}  unit="세"  min={retireAge + 1} max={100} step={1} onChange={setLifeExp} />
       </div>
