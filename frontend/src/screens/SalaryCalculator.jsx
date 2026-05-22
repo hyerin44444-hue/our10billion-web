@@ -295,9 +295,8 @@ export default function SalaryCalculator() {
               {ANNUAL.map((row, i) => (
                 <tr
                   key={i}
-                  style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', cursor: 'default' }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
+                  className="salary-tr"
+                  style={{ borderBottom: '1px solid var(--line)' }}
                 >
                   {row.map((cell, j) => (
                     <td key={j} className={`${j > 0 ? 'num' : ''} ${j >= 3 ? 'salary-col-detail' : ''}`} style={{
