@@ -298,6 +298,9 @@ input[type='range']::-webkit-slider-runnable-track {
   .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+.salary-tr { transition: background 0.1s; }
+.salary-tr:hover { background: var(--surface-2) !important; }
+
 @media (max-width: 768px) {
   .app-frame { grid-template-columns: 1fr; }
   .main { padding: 16px; }
