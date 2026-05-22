@@ -32,6 +32,10 @@ function calculate(buys, currentPrice) {
 // ── 매수 행 입력 ─────────────────────────────────────────────
 function BuyRow({ index, buy, onChange, onRemove, canRemove }) {
   const amount = buy.price * buy.qty;
+  const [priceRaw, setPriceRaw] = useState('');
+  const [priceFocused, setPriceFocused] = useState(false);
+  const [qtyRaw, setQtyRaw] = useState('');
+  const [qtyFocused, setQtyFocused] = useState(false);
   return (
     <div style={{
       display: 'grid', gridTemplateColumns: '32px 1fr 1fr 1fr 36px',
@@ -50,9 +54,12 @@ function BuyRow({ index, buy, onChange, onRemove, canRemove }) {
         <div style={{ fontSize: 11, color: 'var(--text-3)', marginBottom: 4 }}>매수가</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'var(--surface-2)', borderRadius: 8, padding: '6px 10px' }}>
           <input
-            type="number" min="0" value={buy.price || ''}
+            type="text"
+            value={priceFocused ? priceRaw : (buy.price ? buy.price.toLocaleString() : '')}
             placeholder="0"
-            onChange={e => onChange({ ...buy, price: Number(e.target.value) })}
+            onFocus={() => { setPriceRaw(buy.price ? String(buy.price) : ''); setPriceFocused(true); }}
+            onChange={e => setPriceRaw(e.target.value.replace(/[^0-9]/g, ''))}
+            onBlur={() => { const n = parseInt(priceRaw, 10); onChange({ ...buy, price: isNaN(n) ? 0 : n }); setPriceFocused(false); }}
             style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
               color: 'var(--text)', fontFamily: 'inherit', fontSize: 14, fontWeight: 600, minWidth: 0 }}
           />
@@ -65,9 +72,12 @@ function BuyRow({ index, buy, onChange, onRemove, canRemove }) {
         <div style={{ fontSize: 11, color: 'var(--text-3)', marginBottom: 4 }}>수량</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'var(--surface-2)', borderRadius: 8, padding: '6px 10px' }}>
           <input
-            type="number" min="0" value={buy.qty || ''}
+            type="text"
+            value={qtyFocused ? qtyRaw : (buy.qty ? buy.qty.toLocaleString() : '')}
             placeholder="0"
-            onChange={e => onChange({ ...buy, qty: Number(e.target.value) })}
+            onFocus={() => { setQtyRaw(buy.qty ? String(buy.qty) : ''); setQtyFocused(true); }}
+            onChange={e => setQtyRaw(e.target.value.replace(/[^0-9]/g, ''))}
+            onBlur={() => { const n = parseInt(qtyRaw, 10); onChange({ ...buy, qty: isNaN(n) ? 0 : n }); setQtyFocused(false); }}
             style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
               color: 'var(--text)', fontFamily: 'inherit', fontSize: 14, fontWeight: 600, minWidth: 0 }}
           />
