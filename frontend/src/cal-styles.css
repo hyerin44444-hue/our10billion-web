@@ -379,6 +379,7 @@ input[type='range']::-webkit-slider-runnable-track {
     transition: transform 0.25s ease;
     box-shadow: none;
   }
+  .sb-ad { display: none; }
   .sb.drawer-open {
     transform: translateX(0);
     box-shadow: 4px 0 24px rgba(0,0,0,0.18);
