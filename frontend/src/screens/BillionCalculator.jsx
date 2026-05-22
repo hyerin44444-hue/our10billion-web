@@ -289,6 +289,8 @@ export default function BillionCalculator() {
         </div>
       </div>
 
+      <AdFitBanner />
+
       {/* 결과 히어로 */}
       <div className="card hero">
         {result.already ? (
