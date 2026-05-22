@@ -188,14 +188,14 @@ export default function NetWorthCalculator() {
 
       {/* 순자산 히어로 */}
       <div className="card hero">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
+          <div style={{ minWidth: 0 }}>
             <div className="k-light">나의 순자산</div>
-            <div className="num" style={{ fontSize: 56, lineHeight: 1.1, marginTop: 8, color: isPositive ? 'var(--on-light)' : '#ef6f5b' }}>
+            <div className="num" style={{ fontSize: 'clamp(32px, 5vw, 56px)', lineHeight: 1.1, marginTop: 8, color: isPositive ? 'var(--on-light)' : '#ef6f5b' }}>
               {isPositive ? '' : '-'}{fmt(Math.abs(netWorth))}
               <span style={{ fontSize: 22, fontWeight: 600, color: 'var(--on-light-2)', marginLeft: 4 }}>원</span>
             </div>
-            <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
               <span className="chip light">총 자산 {fmt(totalAssets)}원</span>
               <span className="chip light">총 부채 {fmt(totalDebts)}원</span>
             </div>
@@ -203,7 +203,7 @@ export default function NetWorthCalculator() {
 
           {/* 자산-부채 시각화 바 */}
           {totalAssets > 0 && (
-            <div style={{ minWidth: 200, textAlign: 'right' }}>
+            <div style={{ width: '100%', maxWidth: 240 }}>
               <div className="k-light" style={{ marginBottom: 10 }}>자산 구성</div>
               <div style={{ height: 14, borderRadius: 999, overflow: 'hidden', background: '#f4a8cb', display: 'flex' }}>
                 <div style={{
