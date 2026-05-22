@@ -271,7 +271,7 @@ export default function RetirementCalculator() {
           </div>
 
           {/* 가능 여부 인디케이터 */}
-          <div style={{ textAlign: 'center', minWidth: 140 }}>
+          <div className="retire-indicator" style={{ textAlign: 'center', minWidth: 140 }}>
             <div style={{
               width: 100, height: 100, borderRadius: '50%', margin: '0 auto',
               background: canRetire
