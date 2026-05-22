@@ -216,6 +216,8 @@ export default function EtfCalculator() {
         />
       </div>
 
+      <AdFitBanner />
+
       {/* 결과 히어로 카드 */}
       <div className="card hero">
         <div className="hero-inner">
