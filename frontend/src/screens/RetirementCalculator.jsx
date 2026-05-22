@@ -202,9 +202,9 @@ export default function RetirementCalculator() {
               ? `은퇴 자산 ${fmt(retirementPortfolio)}원 · ${Math.floor(lastsUntilAge)}세까지 유지 · 모았다 시뮬레이터`
               : `${fmt(Math.abs(shortfall))}원 부족 · 모았다 시뮬레이터`}
           />
-          <div className="seg">
+          <div className="seg" style={{ flexShrink: 0 }}>
             <button className={!pensionOn ? 'on' : ''} onClick={() => setPensionOn(false)}>미포함</button>
-            <button className={pensionOn ? 'on' : ''} onClick={() => setPensionOn(true)}>국민연금 포함</button>
+            <button className={pensionOn ? 'on' : ''} onClick={() => setPensionOn(true)}>연금포함</button>
           </div>
         </div>
       </div>
