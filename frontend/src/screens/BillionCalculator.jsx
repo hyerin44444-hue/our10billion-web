@@ -220,11 +220,34 @@ export default function BillionCalculator() {
       </div>
 
       {/* 입력 슬라이더 */}
-      <div className="grid-4">
-        <SliderCard label="현재 나이"    value={currentAge}    unit="세"   min={20}  max={60}    step={1}   onChange={update(setCurrentAge, 'bag')} />
-        <SliderCard label="현재 자산"    value={currentAssets} unit="만원" min={0}   max={50000} step={500} onChange={update(setCurrentAssets, 'ba')} />
-        <SliderCard label="월 저축액"    value={monthly}       unit="만원" min={10}  max={1000}  step={10}  onChange={update(setMonthly, 'bm')} />
-        <SliderCard label="기대 수익률"  value={rate}          unit="%"    min={0}   max={20}    step={0.5} onChange={update(setRate, 'br')} isRate />
+      <div className="grid-3">
+        <SliderCard label="현재 나이" value={currentAge} unit="세"   min={20} max={60}   step={1}   onChange={update(setCurrentAge, 'bag')} />
+        <SliderCard label="월 저축액" value={monthly}    unit="만원" min={10} max={1000} step={10}  onChange={update(setMonthly, 'bm')} />
+      </div>
+
+      {/* 현재 자산 */}
+      <div className="card dim" style={{ padding: '14px 18px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <span className="k">현재 자산 구성</span>
+          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--purple)' }}>총 {fmt(currentAssets)}만원</span>
+        </div>
+        <div className="grid-3">
+          <SliderCard label="💵 현금 / 예금" value={cash}      unit="만원" min={0} max={30000} step={500} onChange={update(setCash, 'bc')} />
+          <SliderCard label="📈 주식"        value={stocks}    unit="만원" min={0} max={50000} step={500} onChange={update(setStocks, 'bs')} />
+          <SliderCard label="주식 기대수익률" value={stockRate} unit="%"    min={0} max={30}    step={0.5} onChange={update(setStockRate, 'br')} isRate />
+        </div>
+        <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+          <div style={{ flex: cash + stocks > 0 ? cash / (cash + stocks) : 0.5,
+            height: 8, background: 'var(--blue)', borderRadius: '999px 0 0 999px',
+            transition: 'flex 0.3s', minWidth: 4 }} />
+          <div style={{ flex: cash + stocks > 0 ? stocks / (cash + stocks) : 0.5,
+            height: 8, background: 'var(--coral)', borderRadius: '0 999px 999px 0',
+            transition: 'flex 0.3s', minWidth: 4 }} />
+        </div>
+        <div style={{ display: 'flex', gap: 16, marginTop: 6, fontSize: 11, color: 'var(--text-3)' }}>
+          <span><span style={{ color: 'var(--blue)', fontWeight: 700 }}>■</span> 현금/예금 {cash + stocks > 0 ? ((cash / (cash + stocks)) * 100).toFixed(0) : 0}%</span>
+          <span><span style={{ color: 'var(--coral)', fontWeight: 700 }}>■</span> 주식 {cash + stocks > 0 ? ((stocks / (cash + stocks)) * 100).toFixed(0) : 0}%</span>
+        </div>
       </div>
 
       {/* 진행률 바 */}
