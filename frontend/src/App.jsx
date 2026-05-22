@@ -34,6 +34,7 @@ export default function App() {
     billion:    <BillionCalculator />,
     stock:      <StockAverageCalculator />,
     salary:     <SalaryCalculator />,
+    median:     <MedianIncomeTable />,
   }[active];
 
   return (
