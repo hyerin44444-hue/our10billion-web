@@ -38,8 +38,8 @@ function BuyRow({ index, buy, onChange, onRemove, canRemove }) {
   const [qtyFocused, setQtyFocused] = useState(false);
   return (
     <div style={{
-      display: 'grid', gridTemplateColumns: '32px 1fr 1fr 1fr 36px',
-      gap: 10, alignItems: 'center', padding: '10px 0',
+      display: 'grid', gridTemplateColumns: '28px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 32px',
+      gap: 8, alignItems: 'center', padding: '10px 0',
       borderBottom: '1px solid var(--line)',
     }}>
       <div style={{
@@ -265,7 +265,7 @@ export default function StockAverageCalculator() {
                 onChange={e => setCpRaw(e.target.value.replace(/[^0-9]/g, ''))}
                 onBlur={() => { const n = parseInt(cpRaw, 10); if (!isNaN(n)) handleCurrentPrice(n); setCpFocused(false); }}
                 style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
-                  color: 'var(--text)', fontFamily: 'inherit', fontSize: 22, fontWeight: 700,
+                  color: 'var(--text)', fontFamily: 'inherit', fontSize: 15, fontWeight: 700,
                   borderBottom: '1px solid var(--coral)', paddingBottom: 2 }}
               />
               <span style={{ fontSize: 14, color: 'var(--text-3)' }}>원</span>
@@ -291,7 +291,7 @@ export default function StockAverageCalculator() {
                 onChange={e => setTpRaw(e.target.value.replace(/[^0-9]/g, ''))}
                 onBlur={() => { const n = parseInt(tpRaw, 10); if (!isNaN(n)) handleTargetPrice(n); setTpFocused(false); }}
                 style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
-                  color: 'var(--text)', fontFamily: 'inherit', fontSize: 22, fontWeight: 700,
+                  color: 'var(--text)', fontFamily: 'inherit', fontSize: 15, fontWeight: 700,
                   borderBottom: '1px solid var(--purple)', paddingBottom: 2 }}
               />
               <span style={{ fontSize: 14, color: 'var(--text-3)' }}>원</span>
