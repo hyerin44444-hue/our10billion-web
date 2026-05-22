@@ -308,15 +308,15 @@ export default function BillionCalculator() {
           </div>
         ) : (
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <div>
+            <div style={{ minWidth: 0 }}>
               <div className="k-light">목표 {fmt(target)}원 달성까지</div>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginTop: 8 }}>
-                <span className="num" style={{ fontSize: 56, lineHeight: 1.05 }}>{result.years}</span>
-                <span style={{ fontSize: 24, color: 'var(--on-light-2)', fontWeight: 600 }}>년</span>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
+                <span className="num billion-years">{result.years}</span>
+                <span className="billion-unit">년</span>
                 {result.remainMonths > 0 && (
                   <>
-                    <span className="num" style={{ fontSize: 40, lineHeight: 1.05 }}>{result.remainMonths}</span>
-                    <span style={{ fontSize: 20, color: 'var(--on-light-2)', fontWeight: 600 }}>개월</span>
+                    <span className="num billion-months">{result.remainMonths}</span>
+                    <span className="billion-unit-sm">개월</span>
                   </>
                 )}
               </div>
