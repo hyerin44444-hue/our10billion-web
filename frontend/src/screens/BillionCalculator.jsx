@@ -2,29 +2,30 @@ import { useState, useMemo } from 'react';
 import { KakaoShare, CopyLinkBtn } from '../components/Shared';
 
 // ── 계산 ──────────────────────────────────────────────────────
-function calculate({ currentAssets, monthly, rate, target, currentAge }) {
-  const r = rate / 100 / 12;
+function calculate({ cash, stocks, stockRate, monthly, target, currentAge }) {
+  const r = stockRate / 100 / 12;
+  const currentAssets = cash + stocks;
 
   if (currentAssets >= target) {
     return { already: true, months: 0, years: 0, remainMonths: 0, yearly: [], achieveAge: currentAge };
   }
 
-  let portfolio = currentAssets;
+  let stockPortfolio = stocks;
   let months = 0;
-  const maxMonths = 720; // 60년
-  const yearly = [{ year: 0, portfolio, age: currentAge }];
+  const maxMonths = 720;
+  const yearly = [{ year: 0, portfolio: currentAssets, age: currentAge }];
 
-  while (portfolio < target && months < maxMonths) {
-    portfolio = r > 0
-      ? portfolio * (1 + r) + monthly
-      : portfolio + monthly;
+  while ((cash + stockPortfolio) < target && months < maxMonths) {
+    stockPortfolio = r > 0
+      ? stockPortfolio * (1 + r) + monthly
+      : stockPortfolio + monthly;
     months++;
     if (months % 12 === 0) {
-      yearly.push({ year: months / 12, portfolio, age: currentAge + months / 12 });
+      yearly.push({ year: months / 12, portfolio: cash + stockPortfolio, age: currentAge + months / 12 });
     }
   }
 
-  if (portfolio < target) {
+  if ((cash + stockPortfolio) < target) {
     return { impossible: true, yearly, months: -1 };
   }
 
@@ -32,12 +33,11 @@ function calculate({ currentAssets, monthly, rate, target, currentAge }) {
   const remainMonths = months % 12;
   const achieveAge = currentAge + months / 12;
 
-  // 중간 마일스톤 (25%, 50%, 75%)
   const milestones = [0.25, 0.5, 0.75].map(pct => {
     const t = target * pct;
-    let p2 = currentAssets, m2 = 0;
-    while (p2 < t && m2 < months) {
-      p2 = r > 0 ? p2 * (1 + r) + monthly : p2 + monthly;
+    let sp = stocks, m2 = 0;
+    while ((cash + sp) < t && m2 < months) {
+      sp = r > 0 ? sp * (1 + r) + monthly : sp + monthly;
       m2++;
     }
     return { pct, months: m2, years: Math.floor(m2 / 12), age: currentAge + m2 / 12, value: t };
@@ -76,7 +76,7 @@ function SliderCard({ label, value, unit, min, max, step, onChange, isRate }) {
             setFocused(false);
           }}
           style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
-            color: 'var(--text)', fontFamily: 'inherit', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em' }}
+            color: 'var(--text)', fontFamily: 'inherit', fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em' }}
         />
         <span style={{ fontSize: 13, color: 'var(--text-3)', flexShrink: 0 }}>{unit}</span>
       </div>
