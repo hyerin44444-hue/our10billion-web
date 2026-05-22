@@ -213,7 +213,7 @@ export default function RetirementCalculator() {
       <div className="grid-4">
         <SliderCard label="현재 나이"    value={currentAge}    unit="세"  min={20} max={60} step={1}   onChange={setCurrentAge} />
         <SliderCard label="목표 은퇴 나이" value={retireAge}   unit="세"  min={currentAge + 1} max={70} step={1} onChange={setRetireAge} />
-        <SliderCard label="현재 자산"    value={currentAssets} unit="만원" min={0} max={50000} step={500} onChange={setCurrentAssets} display={fmt(currentAssets)} />
+        <SliderCard label="현재 자산"    value={currentAssets} unit="만원" min={0} max={50000} step={500} onChange={setCurrentAssets} />
         <SliderCard label="월 저축액"    value={monthly}       unit="만원" min={10} max={1000} step={10} onChange={setMonthly} />
       </div>
 
