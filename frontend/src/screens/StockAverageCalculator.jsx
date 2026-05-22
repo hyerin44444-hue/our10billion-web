@@ -381,7 +381,7 @@ export default function StockAverageCalculator() {
                   <span className="num">{fmtPrice(b.price)}</span>
                   <span className="num">{b.qty.toLocaleString()}주</span>
                   <span className="num">{fmtWon(amount)}</span>
-                  <div>
+                  <div className="stock-col-weight">
                     <div style={{ height: 4, background: 'rgba(255,255,255,0.08)', borderRadius: 999, marginBottom: 4 }}>
                       <div style={{ height: '100%', width: `${weight}%`, borderRadius: 999,
                         background: ['var(--coral)', 'var(--orange)', 'var(--purple)', 'var(--blue)', 'var(--green)'][i % 5] }} />
