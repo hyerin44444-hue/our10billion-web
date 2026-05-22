@@ -100,7 +100,7 @@ const MENU_ITEMS = [
   { id: 'retirement',  icon: '🌴', label: '은퇴 가능 계산기',    dot: 'purple' },
   { id: 'billion',     icon: '🎯', label: '10억까지 얼마나',      dot: 'blue' },
   { id: 'stock',       icon: '📉', label: '주식 물타기 계산기',   dot: 'green' },
-  { id: 'salary',      icon: '💵', label: '연봉 실수령액 계산기', dot: 'yellow' },
+  { id: 'salary',      icon: '💵', label: '연봉 실수령액 표', dot: 'yellow' },
   { id: 'median',      icon: '📊', label: '기준 중위소득 표',     dot: 'blue' },
 ];
 
@@ -132,16 +132,6 @@ export function Sidebar({ active, onNavigate }) {
         ))}
       </div>
 
-      <div className="spacer" />
-
-      <div style={{ padding: '0 10px 16px' }}>
-        <div className="sb-row" style={{ color: 'var(--text-3)' }}>
-          <span style={{ width: 32, height: 32, borderRadius: 10, fontSize: 16,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            background: 'var(--surface-2)' }}>⚙</span>
-          <span>설정</span>
-        </div>
-      </div>
     </aside>
   );
 }
