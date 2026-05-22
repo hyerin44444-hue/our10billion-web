@@ -292,7 +292,7 @@ export default function StockAverageCalculator() {
                 onBlur={() => { const n = parseInt(tpRaw, 10); if (!isNaN(n)) handleTargetPrice(n); setTpFocused(false); }}
                 style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
                   color: 'var(--text)', fontFamily: 'inherit', fontSize: 15, fontWeight: 700,
-                  borderBottom: '1px solid var(--purple)', paddingBottom: 2 }}
+                  minWidth: 0 }}
               />
               <span style={{ fontSize: 14, color: 'var(--text-3)' }}>원</span>
             </div>
