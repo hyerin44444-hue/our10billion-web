@@ -106,24 +106,41 @@ const MENU_ITEMS = [
 export function Sidebar({ active, onNavigate }) {
   return (
     <aside className="sb scroll">
-      <div className="sb-brand" style={{ padding: '0 4px 4px' }}>
-        <img src="/lockup-horizontal-kr-white.svg" alt="모았다" style={{ height: 36, width: 'auto' }} />
+      {/* 브랜드 헤더 */}
+      <div className="sb-brand">
+        <img src="/lockup-horizontal-kr.svg" alt="모았다" style={{ height: 32, width: 'auto' }} />
       </div>
 
-      <div className="sb-list" style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      {/* 메뉴 */}
+      <div className="sb-list">
         {MENU_ITEMS.map(({ id, icon, label, dot }) => (
           <div
             key={id}
             className={`sb-row ${active === id ? 'active' : ''}`}
             onClick={() => onNavigate?.(id)}
           >
-            <span className={`dot ${dot}`} style={{ width: 28, height: 28, fontSize: 14 }}>{icon}</span>
+            <span style={{
+              width: 32, height: 32, borderRadius: 10, fontSize: 16,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: active === id ? 'var(--purple)' : 'var(--surface-2)',
+              flexShrink: 0,
+              transition: 'background 0.15s',
+            }}>{icon}</span>
             <span style={{ flex: 1 }}>{label}</span>
           </div>
         ))}
       </div>
 
-      <div className="spacer"></div>
+      <div className="spacer" />
+
+      <div style={{ padding: '0 10px 16px' }}>
+        <div className="sb-row" style={{ color: 'var(--text-3)' }}>
+          <span style={{ width: 32, height: 32, borderRadius: 10, fontSize: 16,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: 'var(--surface-2)' }}>⚙</span>
+          <span>설정</span>
+        </div>
+      </div>
     </aside>
   );
 }
