@@ -101,6 +101,10 @@ body {
   background: var(--bg);
   min-width: 0;
 }
+.main.main-flow {
+  overflow-y: visible;
+  height: auto;
+}
 
 .topbar {
   display: flex; align-items: center; justify-content: space-between;
