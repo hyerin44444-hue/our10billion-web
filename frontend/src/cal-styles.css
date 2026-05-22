@@ -299,6 +299,10 @@ input[type='range']::-webkit-slider-runnable-track {
 }
 
 /* ── 주식 물타기 히어로 ──────────────────────────────────────── */
+/* ── 은퇴 계산기 히어로 ──────────────────────────────────────── */
+.retire-hero-value { font-size: 52px; }
+.retire-hero-unit  { font-size: 22px; font-weight: 600; color: var(--on-light-2); margin-left: 4px; }
+
 /* ── 10억까지 히어로 ─────────────────────────────────────────── */
 .billion-years   { font-size: 56px; line-height: 1.05; }
 .billion-months  { font-size: 40px; line-height: 1.05; }
