@@ -311,9 +311,8 @@ export default function SalaryCalculator() {
                 const displayRow = [row[0], calcMonthlyGross(row[0]), ...row.slice(1)];
                 const isOpen = selectedIdx === i;
                 return (
-                  <>
+                  <React.Fragment key={i}>
                     <tr
-                      key={i}
                       className="salary-tr"
                       style={{
                         borderBottom: isOpen ? 'none' : '1px solid var(--line)',
