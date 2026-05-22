@@ -364,16 +364,6 @@ export default function BillionCalculator() {
         </div>
       )}
 
-      {/* 공유 */}
-      {!result.impossible && (
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 10, paddingBottom: 8 }}>
-          <CopyLinkBtn />
-          <KakaoShare
-            title={`${fmt(target)}원, ${result.years}년 후 달성 가능!`}
-            description={`월 ${fmt(monthly)}원 저축으로 ${Math.floor(result.achieveAge)}세에 목표 달성 · 모았다 시뮬레이터`}
-          />
-        </div>
-      )}
     </>
   );
 }
