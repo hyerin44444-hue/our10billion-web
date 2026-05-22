@@ -353,4 +353,17 @@ input[type='range']::-webkit-slider-runnable-track {
   .grid-2 { grid-template-columns: minmax(0, 1fr) !important; }
   .salary-col-detail { display: none; }
   .salary-topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+  /* 모바일 topbar: 제목 위, 버튼 아래 */
+  .topbar {
+    flex-wrap: wrap;
+    gap: 8px 0;
+  }
+  .topbar .left { width: 100%; }
+  .topbar .right {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-start;
+  }
 }
