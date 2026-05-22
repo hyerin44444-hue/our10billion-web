@@ -100,6 +100,7 @@ const MENU_ITEMS = [
   { id: 'retirement',  icon: '🌴', label: '은퇴 가능 계산기',    dot: 'purple' },
   { id: 'billion',     icon: '🎯', label: '10억까지 얼마나',      dot: 'blue' },
   { id: 'stock',       icon: '📉', label: '주식 물타기 계산기',   dot: 'green' },
+  { id: 'salary',      icon: '💵', label: '연봉 실수령액 계산기', dot: 'yellow' },
 ];
 
 export function Sidebar({ active, onNavigate }) {
