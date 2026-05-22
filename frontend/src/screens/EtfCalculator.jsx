@@ -61,7 +61,7 @@ function InputCard({ label, value, unit, min, max, step, onChange, isRate }) {
             setFocused(false);
           }}
           style={{ flex: 1, background: 'none', border: 'none', outline: 'none',
-            color: 'var(--text)', fontFamily: 'inherit', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em' }}
+            color: 'var(--text)', fontFamily: 'inherit', fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em' }}
         />
         <span style={{ fontSize: 13, color: 'var(--text-3)', flexShrink: 0 }}>{unit}</span>
       </div>
@@ -99,13 +99,13 @@ function GrowthChart({ data }) {
       {[0.25, 0.5, 0.75].map((p, i) => (
         <line key={i} x1="30" x2={W - 30}
           y1={36 + (H - 72) * p} y2={36 + (H - 72) * p}
-          stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+          stroke="rgba(0,0,0,0.07)" strokeWidth="1" />
       ))}
 
       {/* 원금 영역 */}
       <path d={`${principalPath} L ${x(data.length - 1)} ${H - 36} L ${x(0)} ${H - 36} Z`}
-        fill="rgba(255,255,255,0.05)" />
-      <path d={principalPath} stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" strokeDasharray="4 3" fill="none" />
+        fill="rgba(0,0,0,0.04)" />
+      <path d={principalPath} stroke="rgba(0,0,0,0.2)" strokeWidth="1.5" strokeDasharray="4 3" fill="none" />
 
       {/* 평가금액 영역 */}
       <path d={portfolioArea} fill="url(#coral-grad)" />
@@ -118,13 +118,13 @@ function GrowthChart({ data }) {
       {/* X 레이블 */}
       {data.filter((_, i) => i % Math.ceil(data.length / 6) === 0 || i === data.length - 1).map((d, i) => (
         <text key={i} x={x(data.indexOf(d))} y={H - 10} fontSize="11" textAnchor="middle"
-          fill="rgba(255,255,255,0.45)" fontFamily="Inter">{d.year}년</text>
+          fill="rgba(0,0,0,0.4)" fontFamily="Inter">{d.year}년</text>
       ))}
 
       {/* Y 레이블 */}
       {[0.25, 0.5, 0.75, 1].map((p, i) => (
         <text key={i} x="26" y={36 + (H - 72) * (1 - p) + 4} fontSize="10" textAnchor="end"
-          fill="rgba(255,255,255,0.35)" fontFamily="Inter">{fmtShort(maxV * p)}</text>
+          fill="rgba(0,0,0,0.35)" fontFamily="Inter">{fmtShort(maxV * p)}</text>
       ))}
     </svg>
   );
@@ -141,7 +141,7 @@ function YearlyTable({ data }) {
       </div>
       {rows.map((d, i) => (
         <div key={i} style={{ display: 'grid', gridTemplateColumns: '60px 1fr 1fr 1fr', gap: 8,
-          fontSize: 13, padding: '6px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+          fontSize: 13, padding: '6px 0', borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
           <span style={{ color: 'var(--text-3)' }}>{d.year}년</span>
           <span className="num">{fmtShort(d.principal)}원</span>
           <span className="num" style={{ fontWeight: 700 }}>{fmtShort(d.portfolio)}원</span>
@@ -154,7 +154,7 @@ function YearlyTable({ data }) {
 
 // ── 메인 컴포넌트 ─────────────────────────────────────────────
 export default function EtfCalculator() {
-  const [initial, setInitial] = useState(() => getNum('ei', 1000));
+  const [initial, setInitial] = useState(() => getNum('ei', 50000));
   const [monthly, setMonthly] = useState(() => getNum('em', 100));
   const [rate, setRate]       = useState(() => getNum('er', 7));
   const [years, setYears]     = useState(() => getNum('ey', 20));
@@ -201,7 +201,7 @@ export default function EtfCalculator() {
         />
         <InputCard
           label="초기 투자금" unit="만원"
-          min={0} max={10000} step={100} value={initial}
+          min={0} max={100000} step={1000} value={initial}
           onChange={setInitial}
         />
         <InputCard
@@ -279,7 +279,7 @@ export default function EtfCalculator() {
           </div>
           <div style={{ display: 'flex', gap: 16, fontSize: 13 }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ width: 24, height: 2, background: 'rgba(255,255,255,0.3)', display: 'inline-block', borderTop: '2px dashed rgba(255,255,255,0.3)' }}></span>
+              <span style={{ width: 24, height: 2, background: 'rgba(0,0,0,0.25)', display: 'inline-block', borderTop: '2px dashed rgba(0,0,0,0.25)' }}></span>
               납입 원금
             </span>
             <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>

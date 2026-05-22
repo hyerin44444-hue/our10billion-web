@@ -46,7 +46,7 @@ function OverlayChart() {
     <svg width="100%" height={H} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
       {[0.25, 0.5, 0.75].map((p, i) => (
         <line key={i} x1="20" x2={W - 20} y1={30 + (H - 60) * p} y2={30 + (H - 60) * p}
-          stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+          stroke="rgba(0,0,0,0.07)" strokeWidth="1" />
       ))}
       <path d={mk(seriesA)} stroke="var(--blue)" strokeWidth="2.2" fill="none" />
       <path d={mk(seriesB)} stroke="var(--purple)" strokeWidth="2.8" fill="none" />
@@ -56,7 +56,7 @@ function OverlayChart() {
       <circle cx={x(pts - 1)} cy={y(seriesC[pts - 1])} r="5" fill="var(--green)" stroke="#fff" strokeWidth="2" />
       {[0, 8, 16, 24, 29].map(i => (
         <text key={i} x={x(i)} y={H - 10} fontSize="11" textAnchor="middle"
-          fill="rgba(255,255,255,0.55)" fontFamily="Inter">{2026 + i}</text>
+          fill="rgba(0,0,0,0.4)" fontFamily="Inter">{2026 + i}</text>
       ))}
     </svg>
   );
