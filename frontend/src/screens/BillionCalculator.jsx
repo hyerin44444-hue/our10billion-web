@@ -339,7 +339,7 @@ export default function BillionCalculator() {
             { label: '달성 연도', value: `${achieveYear}년`, sub: `지금으로부터 ${result.years}년 후` },
             { label: '달성 시 나이', value: `${Math.floor(result.achieveAge ?? 0)}세`, sub: `현재 ${currentAge}세 기준` },
             { label: '총 납입 원금', value: fmt(currentAssets + monthly * (result.months ?? 0)) + '원', sub: `월 ${monthly.toLocaleString()}만 × ${result.months}개월` },
-            { label: '복리 수익', value: fmt(target - (currentAssets + monthly * (result.months ?? 0))) + '원', sub: `연 ${rate}% 복리 효과`, color: 'var(--coral)' },
+            { label: '복리 수익', value: fmt(target - (currentAssets + monthly * (result.months ?? 0))) + '원', sub: `주식 연 ${stockRate}% 복리 효과`, color: 'var(--coral)' },
           ].map(({ label, value, sub, color }, i) => (
             <div key={i} className="card">
               <div className="k">{label}</div>
