@@ -105,7 +105,22 @@ const MENU_ITEMS = [
   { id: 'median',      icon: '📊', label: '기준 중위소득 표',     dot: 'blue' },
 ];
 
+const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
 export function AdFitBanner() {
+  if (IS_LOCAL) {
+    return (
+      <div style={{
+        width: 320, height: 50, margin: '0 auto', flexShrink: 0,
+        background: '#FEE500', border: '1px dashed #c8b800',
+        borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: 11, color: '#7a6e00', fontWeight: 600, gap: 6,
+      }}>
+        <span>광고</span>
+        <span style={{ opacity: 0.6 }}>320×50 · 로컬 미리보기</span>
+      </div>
+    );
+  }
   return (
     <div style={{ textAlign: 'center', flexShrink: 0 }}>
       <ins className="kakao_ad_area" style={{ display: 'none' }}
