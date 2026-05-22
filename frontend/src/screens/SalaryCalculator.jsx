@@ -270,7 +270,7 @@ export default function SalaryCalculator() {
 
   return (
     <>
-      <div className="topbar">
+      <div className="topbar salary-topbar">
         <div className="left">
           <div>
             <div className="title">연봉 실수령액 표</div>
@@ -287,11 +287,11 @@ export default function SalaryCalculator() {
 
       <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
         <div style={{ maxHeight: 'calc(100vh - 200px)', overflow: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 700 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
               <tr style={{ background: 'var(--surface)', borderBottom: '1px solid var(--line)' }}>
                 {headers.map((h, i) => (
-                  <th key={h} style={{
+                  <th key={h} className={i >= 3 ? 'salary-col-detail' : ''} style={{
                     padding: '11px 14px',
                     textAlign: i === 0 ? 'left' : 'right',
                     fontSize: 11,
@@ -312,10 +312,10 @@ export default function SalaryCalculator() {
                   onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
                 >
                   {row.map((cell, j) => (
-                    <td key={j} className={j > 0 ? 'num' : ''} style={{
+                    <td key={j} className={`${j > 0 ? 'num' : ''} ${j >= 3 ? 'salary-col-detail' : ''}`} style={{
                       padding: '9px 14px',
                       textAlign: j === 0 ? 'left' : 'right',
-                      fontSize: j === 0 ? 13 : 13,
+                      fontSize: 13,
                       color: COL_COLORS[j] || 'var(--text-1)',
                       fontWeight: j === 0 ? 500 : j === 1 ? 700 : 400,
                       whiteSpace: 'nowrap',
