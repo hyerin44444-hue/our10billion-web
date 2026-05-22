@@ -154,24 +154,27 @@ const TARGETS = [
 function getInitial() {
   const p = new URLSearchParams(window.location.search);
   return {
-    currentAssets: Number(p.get('ba')) || 3000,
-    monthly:       Number(p.get('bm')) || 200,
-    rate:          Number(p.get('br')) || 7,
-    target:        Number(p.get('bt')) || 100000,
-    currentAge:    Number(p.get('bag')) || 35,
+    cash:       Number(p.get('bc'))  || 1000,
+    stocks:     Number(p.get('bs'))  || 2000,
+    stockRate:  Number(p.get('br'))  || 7,
+    monthly:    Number(p.get('bm'))  || 200,
+    target:     Number(p.get('bt'))  || 100000,
+    currentAge: Number(p.get('bag')) || 35,
   };
 }
 
 // ── 메인 ─────────────────────────────────────────────────────
 export default function BillionCalculator() {
   const init = useMemo(getInitial, []);
-  const [currentAssets, setCurrentAssets] = useState(init.currentAssets);
-  const [monthly,       setMonthly]       = useState(init.monthly);
-  const [rate,          setRate]          = useState(init.rate);
-  const [target,        setTarget]        = useState(init.target);
-  const [currentAge,    setCurrentAge]    = useState(init.currentAge);
+  const [cash,       setCash]       = useState(init.cash);
+  const [stocks,     setStocks]     = useState(init.stocks);
+  const [stockRate,  setStockRate]  = useState(init.stockRate);
+  const [monthly,    setMonthly]    = useState(init.monthly);
+  const [target,     setTarget]     = useState(init.target);
+  const [currentAge, setCurrentAge] = useState(init.currentAge);
 
-  // 값 바뀔 때마다 URL 동기화
+  const currentAssets = cash + stocks;
+
   const sync = (key, val) => {
     const sp = new URLSearchParams(window.location.search);
     sp.set('screen', 'billion');
@@ -182,8 +185,8 @@ export default function BillionCalculator() {
   const update = (setter, key) => (val) => { setter(val); sync(key, val); };
 
   const result = useMemo(() =>
-    calculate({ currentAssets, monthly, rate, target, currentAge }),
-    [currentAssets, monthly, rate, target, currentAge]
+    calculate({ cash, stocks, stockRate, monthly, target, currentAge }),
+    [cash, stocks, stockRate, monthly, target, currentAge]
   );
 
   const progress = Math.min((currentAssets / target) * 100, 100);
