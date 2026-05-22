@@ -272,16 +272,35 @@ export default function SalaryCalculator() {
 
             {/* 중위소득 */}
             <div className="card">
-              <div className="k" style={{ marginBottom: 12 }}>{household}인 가구 중위소득 대비</div>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 10 }}>
-                <span className="num" style={{ fontSize: 36, color: medianColor(selectedRow.medianRatio) }}>{selectedRow.medianRatio.toFixed(1)}</span>
-                <span style={{ color: 'var(--text-3)' }}>% · 중위소득 {MEDIAN_INCOME[household].toFixed(1)}만원</span>
-              </div>
-              <div style={{ height: 10, background: 'rgba(255,255,255,0.08)', borderRadius: 999, overflow: 'hidden', marginBottom: 6 }}>
-                <div style={{ height: '100%', width: `${Math.min(selectedRow.medianRatio / 2.5, 100)}%`,
-                  background: `linear-gradient(90deg, var(--pink), ${medianColor(selectedRow.medianRatio)})`,
-                  borderRadius: 999, transition: 'width 0.4s' }} />
-              </div>
+              <div className="k" style={{ marginBottom: 12 }}>가구원 수별 중위소득 대비</div>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                    {['가구원', '중위소득', '비율', ''].map((h, i) => (
+                      <th key={h + i} style={{ padding: '6px 8px', textAlign: i === 0 ? 'left' : 'right', fontSize: 10, fontWeight: 600, color: 'var(--text-3)', letterSpacing: '0.03em', textTransform: 'uppercase' }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {[1,2,3,4,5,6].map(n => {
+                    const ratio = (selectedRow.netMonthly / MEDIAN_INCOME[n]) * 100;
+                    const color = medianColor(ratio);
+                    const isCurrentHousehold = n === household;
+                    return (
+                      <tr key={n} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', background: isCurrentHousehold ? 'rgba(239,111,91,0.08)' : 'transparent' }}>
+                        <td style={{ padding: '8px 8px', fontWeight: isCurrentHousehold ? 700 : 400, color: isCurrentHousehold ? 'var(--coral)' : 'var(--text-2)' }}>{n}인</td>
+                        <td className="num" style={{ padding: '8px 8px', textAlign: 'right', color: 'var(--text-3)' }}>{MEDIAN_INCOME[n].toFixed(1)}만</td>
+                        <td className="num" style={{ padding: '8px 8px', textAlign: 'right', fontWeight: 700, color }}>{ratio.toFixed(1)}%</td>
+                        <td style={{ padding: '8px 8px', width: 80 }}>
+                          <div style={{ height: 6, background: 'rgba(255,255,255,0.08)', borderRadius: 999, overflow: 'hidden' }}>
+                            <div style={{ height: '100%', width: `${Math.min(ratio / 2.5, 100)}%`, background: color, borderRadius: 999, transition: 'width 0.4s' }} />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           </div>
         )}
