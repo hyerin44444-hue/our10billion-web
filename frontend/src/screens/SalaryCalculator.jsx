@@ -285,11 +285,11 @@ export default function SalaryCalculator() {
         </div>
       </div>
 
-      <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-        <div style={{ overflowX: 'auto' }}>
+      <div className="card" style={{ padding: 0, overflow: 'hidden', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ overflow: 'auto', flex: 1, minHeight: 0 }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 700 }}>
-            <thead>
-              <tr style={{ background: 'rgba(255,255,255,0.05)', borderBottom: '1px solid var(--line)' }}>
+            <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+              <tr style={{ background: 'var(--surface)', borderBottom: '1px solid var(--line)' }}>
                 {headers.map((h, i) => (
                   <th key={h} style={{
                     padding: '11px 14px',
