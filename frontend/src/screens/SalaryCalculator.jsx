@@ -324,7 +324,8 @@ export default function SalaryCalculator() {
               </tr>
             </thead>
             <tbody>
-              {ANNUAL.map((row, i) => {
+              {ANNUAL.map((rawRow, i) => {
+                const row = applyPensionCap(rawRow);
                 const displayRow = [row[0], calcMonthlyGross(row[0]), ...row.slice(1)];
                 const isOpen = selectedIdx === i;
                 return (
