@@ -263,10 +263,27 @@ const HEADERS = ['연봉', '세전 월급', '실수령액', '공제액계', '국
 
 const COL_COLORS = [null, 'var(--text-2)', 'var(--coral)', 'var(--text-2)', 'var(--purple)', 'var(--blue)', 'var(--blue)', 'var(--green)', 'var(--orange)', 'var(--orange)'];
 
+// 2025.7~2026.6 국민연금 기준소득월액 상한 617만원 × 4.5%
+const PENSION_CAP = 277_650;
+
 // "1,000만원" → 세전 월급(원) 계산
 function calcMonthlyGross(annualLabel) {
   const man = Number(annualLabel.replace(/[^0-9]/g, ''));
   return Math.round(man * 10000 / 12).toLocaleString();
+}
+
+// 국민연금 상한 초과 시 보정 (실수령액·공제액계도 함께 조정)
+function applyPensionCap(row) {
+  const pension = parseInt(row[3].replace(/,/g, ''));
+  if (pension <= PENSION_CAP) return row;
+  const diff = pension - PENSION_CAP;
+  return [
+    row[0],
+    (parseInt(row[1].replace(/,/g, '')) + diff).toLocaleString(), // 실수령액 ↑
+    (parseInt(row[2].replace(/,/g, '')) - diff).toLocaleString(), // 공제액계 ↓
+    PENSION_CAP.toLocaleString(),                                  // 국민연금 cap
+    ...row.slice(4),
+  ];
 }
 
 const DETAIL_LABELS = ['국민연금', '건강보험', '장기요양', '고용보험', '소득세', '지방소득세'];
