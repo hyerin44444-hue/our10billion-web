@@ -263,8 +263,9 @@ const HEADERS = ['연봉', '세전 월급', '실수령액', '공제액계', '국
 
 const COL_COLORS = [null, 'var(--text-2)', 'var(--coral)', 'var(--text-2)', 'var(--purple)', 'var(--blue)', 'var(--blue)', 'var(--green)', 'var(--orange)', 'var(--orange)'];
 
-// 2026.7~2027.6 국민연금 기준소득월액 상한 659만원 × 4.5%
-const PENSION_CAP = 296_550;
+// 2026.7~ 국민연금: 요율 4.75% (총 9.5%), 기준소득월액 상한 659만원
+const PENSION_RATE_RATIO = 4.75 / 4.5; // 기존 데이터가 4.5% 기준이므로 비율로 환산
+const PENSION_CAP = 313_025;           // 659만원 × 4.75%
 
 // "1,000만원" → 세전 월급(원) 계산
 function calcMonthlyGross(annualLabel) {
@@ -272,16 +273,17 @@ function calcMonthlyGross(annualLabel) {
   return Math.round(man * 10000 / 12).toLocaleString();
 }
 
-// 국민연금 상한 초과 시 보정 (실수령액·공제액계도 함께 조정)
+// 국민연금 요율 4.75% 적용 + 상한 보정 (실수령액·공제액계 함께 조정)
 function applyPensionCap(row) {
-  const pension = parseInt(row[3].replace(/,/g, ''));
-  if (pension <= PENSION_CAP) return row;
-  const diff = pension - PENSION_CAP;
+  const oldPension = parseInt(row[3].replace(/,/g, ''));
+  const newPension = Math.min(Math.round(oldPension * PENSION_RATE_RATIO), PENSION_CAP);
+  const diff = newPension - oldPension; // 양수: 연금 증가 → 실수령액 감소
+  if (diff === 0) return row;
   return [
     row[0],
-    (parseInt(row[1].replace(/,/g, '')) + diff).toLocaleString(), // 실수령액 ↑
-    (parseInt(row[2].replace(/,/g, '')) - diff).toLocaleString(), // 공제액계 ↓
-    PENSION_CAP.toLocaleString(),                                  // 국민연금 cap
+    (parseInt(row[1].replace(/,/g, '')) - diff).toLocaleString(), // 실수령액 ↓
+    (parseInt(row[2].replace(/,/g, '')) + diff).toLocaleString(), // 공제액계 ↑
+    newPension.toLocaleString(),
     ...row.slice(4),
   ];
 }
