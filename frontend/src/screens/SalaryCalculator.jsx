@@ -263,8 +263,8 @@ const HEADERS = ['연봉', '세전 월급', '실수령액', '공제액계', '국
 
 const COL_COLORS = [null, 'var(--text-2)', 'var(--coral)', 'var(--text-2)', 'var(--purple)', 'var(--blue)', 'var(--blue)', 'var(--green)', 'var(--orange)', 'var(--orange)'];
 
-// 2025.7~2026.6 국민연금 기준소득월액 상한 637만원 × 4.5%
-const PENSION_CAP = 286_650;
+// 2026.7~2027.6 국민연금 기준소득월액 상한 659만원 × 4.5%
+const PENSION_CAP = 296_550;
 
 // "1,000만원" → 세전 월급(원) 계산
 function calcMonthlyGross(annualLabel) {
