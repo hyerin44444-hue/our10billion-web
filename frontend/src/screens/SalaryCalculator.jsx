@@ -300,7 +300,7 @@ export default function SalaryCalculator() {
         <div className="left">
           <div>
             <div className="title">연봉 실수령액 표</div>
-            <div className="sub">2026년 기준 · 부양가족 1명(본인) · 월 비과세 식비 20만원 · 국민연금 상한 296,550원 적용 (2026.7~ 기준소득월액 상한 659만원)</div>
+            <div className="sub">2026년 기준 · 부양가족 1명(본인) · 월 비과세 식비 20만원 · 국민연금 요율 4.75% · 상한 313,025원 적용 (2026.7~ 기준)</div>
           </div>
         </div>
       </div>
